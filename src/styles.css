@@ -1,0 +1,73 @@
+body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  background-color: #222;
+  overflow: hidden;
+}
+
+#cursor {
+  position: absolute;
+  height: 100%;
+  width: 0.125rem;
+  background-color: #fff;
+  left: 0;
+  top: 0;
+}
+
+#sticky {
+  aspect-ratio: 1;
+  border: 1px solid #aaa;
+  /* box-shadow: -0.5rem -0.5rem 0 #aaa; */
+  padding: 0.5rem;
+  width: 16rem;
+}
+
+#game {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.word {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 1.25rem;
+}
+
+.letter {
+  color: #777;
+}
+
+#game-input {
+  position: absolute;
+  min-width: 0;
+  inset: 0;
+  opacity: 0;
+}
+
+.correct {
+  color: #ddd;
+}
+
+.incorrect {
+  color: #f00;
+}
+
+.extra {
+  color: #b00;
+}
+
+#game.unfocused {
+  filter: blur(4px);
+}
+
+#game.done {
+  display: none;
+}

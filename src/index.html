@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typely</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="sticky">
+    <div id="game">
+      <input type="text" id="game-input">
+      <div id="cursor"></div>
+    </div>
+  </div>
+
+  <script>
+    const words = ("The quick brown").split(" ");
+
+    const cursor = document.getElementById("cursor");
+    const game = document.getElementById("game");
+    const gameInput = document.getElementById("game-input");
+
+    const wordElements = [];
+    const letterElements = [];
+    const letterMatrix = [];
+
+    words.forEach((word, i) => {
+      const wordElement = document.createElement("div");
+      wordElement.classList.add("word");
+
+      const letterMatrixRow = [];
+
+      word.split("").forEach((letter) => {
+        const letterElement = document.createElement("span");
+        letterElement.classList.add("letter");
+        letterElement.innerText = letter;
+        wordElement.appendChild(letterElement);
+
+        letterElements.push(letterElement);
+        letterMatrixRow.push(letterElement);
+      });
+
+      if (i !== words.length - 1) {
+        letterElements.push(null)
+      }
+
+      game.appendChild(wordElement);
+      wordElements.push(wordElement);
+      letterMatrix.push(letterMatrixRow);
+    });
+
+    function startGame() {
+
+    }
+
+    function endGame() {
+      game.classList.add("done");
+    }
+
+    gameInput.addEventListener("input", event => {
+      // stripped of extra spaces
+      // todo dont show skipped letters
+      const inputWords = gameInput.value.split(" ").filter(word => word !== "");
+
+      for (const letterElement of letterElements) {
+        if (letterElement === null) {
+          continue;
+        }
+
+        letterElement.classList.remove("correct");
+        letterElement.classList.remove("incorrect");
+      }
+
+      for (const wordElement of wordElements) {
+        wordElement.querySelectorAll(".letter.extra").forEach(el => {
+          el.remove();
+        });
+      }
+
+      let lastLetterElement = null;
+
+      for (let i = 0; i < inputWords.length; i++) {
+        if (i >= words.length) {
+          // what does mt do
+          break;
+        }
+
+        const inputWord = inputWords[i];
+        const actualWord = words[i];
+
+        for (let j = 0; j < inputWord.length; j++) {
+          if (j < actualWord.length) {
+            if (inputWord[j] === actualWord[j]) {
+              letterMatrix[i][j].classList.add("correct");
+            } else {
+              letterMatrix[i][j].classList.add("incorrect");
+            }
+
+            lastLetterElement = letterMatrix[i][j];
+          } else {
+            const wordElement = wordElements[i];
+
+            wordElement.querySelectorAll(".letter.extra").forEach(el => {
+              el.remove();
+            });
+
+            for (const letter of inputWord.substring(actualWord.length)) {
+              const letterElement = document.createElement("span");
+              letterElement.classList.add("letter");
+              letterElement.classList.add("extra");
+              letterElement.innerText = letter;
+              wordElement.appendChild(letterElement);
+
+              lastLetterElement = letterElement;
+            }
+          }
+        }
+      }
+
+      if (lastLetterElement !== null) {
+        // get bounding react
+        const { top, left, width, height } = lastLetterElement.getBoundingClientRect();
+        cursor.style.top = `${top}px`;
+        cursor.style.left = `${left + width}px`;
+        cursor.style.height = `${height}px`;
+      }
+
+
+      if (inputWords.length === words.length) {
+        const lastInputWord = inputWords[inputWords.length - 1];
+        const lastActualWord = words[words.length - 1];
+
+        if ((lastInputWord[lastInputWord.length - 1] === lastActualWord[lastActualWord.length - 1]) || event.data === " ") {
+          endGame();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
