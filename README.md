@@ -12,6 +12,11 @@ you'll see lol
 - [x] rebrand to stickies!!!!!!!!
 - [x] package management!!!!!!!!!!!!
 
+### 9/24/24
+- [ ] webpack + typescript
+- [ ] local dev server (with hot reloading??)
+- [ ] implement letter-based typing
+
 ### eventually...
 - [ ] word/quotelists
 - [ ] configuration system
