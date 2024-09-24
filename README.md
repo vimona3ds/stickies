@@ -8,9 +8,9 @@ you'll see lol
 
 ### 9/23/24
 - [ ] ~~refactor typing logic so that cursor can move across space between words (detect when starting new word)~~ nevermind fuck it start planning letter-based typing system, we can deal with word-based later
-- [*] also fuck js i need types. move to typescript
-- [*] rebrand to stickies!!!!!!!!
-- [*] package management!!!!!!!!!!!!
+- [x] also fuck js i need types. move to typescript
+- [x] rebrand to stickies!!!!!!!!
+- [x] package management!!!!!!!!!!!!
 
 ### eventually...
 - [ ] word/quotelists
