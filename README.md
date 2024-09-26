@@ -13,10 +13,12 @@ you'll see lol
 - [x] package management!!!!!!!!!!!!
 
 ### 9/24/24
-- [ ] system design (too busy to code lol)
+- [x] system design (too busy to code lol)
 
 ### 9/25/24
 - [ ] webpack + typescript
+
+### 9/26/24
 - [ ] local dev server (with hot reloading??)
 - [ ] implement letter-based typing
 

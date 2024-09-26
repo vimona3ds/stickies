@@ -5,13 +5,13 @@
   - day changes at midnight PST for everyone
 - system reads configuration and automatically produces same visual
   - cross platform support
-- visual sticky is 15x15 grid of monospace characters
+- visual sticky is 9x9 grid of monospace characters
 
 ### Sticky
 helper functions to parse
 - id: number
 - layout: leftToRight
-  - eventually - rightToLeft, spiralIn, spiralOut, upsideDown, idfk
+  - eventually - rightToLeft, spiralIn, spiralOut, upsideDown, custom
 - delimeter: string,
 - content: Token[]
 
@@ -82,7 +82,11 @@ user types "2 + 2 = 4"
 
 alright continuing later
 
+## ok but local storage?
+uh pretty simple. `localStorage.get/setItem`. thats simple right idk
 
+## grid system
+ugh for another day
 
 ### how decide config for the day?
 subtract current date from starting date and floor to get config id
