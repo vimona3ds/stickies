@@ -16,7 +16,7 @@ you'll see lol
 - [x] system design (too busy to code lol)
 
 ### 9/25/24
-- [ ] webpack + typescript
+- [x] webpack + typescript
 
 ### 9/26/24
 - [ ] local dev server (with hot reloading??)
@@ -25,3 +25,5 @@ you'll see lol
 ### eventually...
 - [ ] word/quotelists
 - [ ] configuration system
+- [ ] enable source maps in ts/webpack config
+- [ ] linter
