@@ -19,6 +19,9 @@ you'll see lol
 - [x] webpack + typescript
 
 ### 9/26/24
+- [x] wrist pain from typing all day so i am not doing shit today goodnight
+
+### 9/27/24
 - [ ] local dev server (with hot reloading??)
 - [ ] implement letter-based typing
 
