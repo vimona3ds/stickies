@@ -22,7 +22,7 @@ you'll see lol
 - [x] wrist pain from typing all day so i am not doing shit today goodnight
 
 ### 9/27/24
-- [ ] local dev server (with hot reloading??)
+- [x] local dev server (with hot reloading??)
 - [ ] implement letter-based typing
 
 ### eventually...
@@ -30,3 +30,4 @@ you'll see lol
 - [ ] configuration system
 - [ ] enable source maps in ts/webpack config
 - [ ] linter
+- [ ] prod vs dev webpack config

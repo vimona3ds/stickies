@@ -14,11 +14,11 @@ module.exports = {
     ],
   },
   devServer: {
-    static: "./dist",
+    static: "./static",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Development",
+      template: "./static/index.html",
     }),
   ],
   resolve: {
