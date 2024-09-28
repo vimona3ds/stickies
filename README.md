@@ -23,7 +23,8 @@ you'll see lol
 
 ### 9/27/24
 - [x] local dev server (with hot reloading??)
-- [ ] implement letter-based typing
+- [x] ts boilerplate
+- [x] realize i barely did any system design and i have no idea where to start
 
 ### eventually...
 - [ ] word/quotelists
