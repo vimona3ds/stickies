@@ -26,6 +26,12 @@ you'll see lol
 - [x] ts boilerplate
 - [x] realize i barely did any system design and i have no idea where to start
 
+### 9/28/24
+- [x] Grid class with placeholder input
+- [x] fix module imports
+- [ ] fix bug where cell incorrect class overrides correct class (use enum in declaration file, clear classes, change setCellClassNameByIndex to use the enum)
+- [ ] Input class?
+
 ### eventually...
 - [ ] word/quotelists
 - [ ] configuration system

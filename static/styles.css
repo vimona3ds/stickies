@@ -22,7 +22,7 @@ body {
   top: 0;
 }
 
-#sticky {
+#game {
   aspect-ratio: 1;
   border: 1px solid #aaa;
   /* box-shadow: -0.5rem -0.5rem 0 #aaa; */
@@ -30,18 +30,18 @@ body {
   width: 16rem;
 }
 
-#game {
-  display: flex;
-  flex-wrap: wrap;
+#game-grid {
+  display: grid;
+  grid-template: repeat(10, 1fr) / repeat(10, 1fr);
 }
 
 .word {
   display: flex;
   flex-wrap: wrap;
-  margin-right: 1.25rem;
 }
 
 .letter {
+  text-align: center;
   color: #777;
 }
 

@@ -1,15 +1,22 @@
-declare type Sticky = {
+declare type GridConfig = {
   id: number,
+  rows: number,
+  cols: number,
   layout: string,
   delimeter: string,
-  content: Token[]
+  tokens: Token[]
 }
 
-declare type Token = {
+declare type LayoutToken = {
   content: string;
   revealedAsTyped: boolean;
   highlightAsTyped: boolean;
   errorsHighlighted: boolean;
-  directionX?: number;
-  directionY?: number;
+}
+
+declare enum CellType {
+  NONE,
+  CORRECT,
+  INCORRECT,
+  HIDDEN
 }
