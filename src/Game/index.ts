@@ -18,13 +18,13 @@ export class Game {
   size = 10;
 
   state: GameState = GameState.NotStarted;
-  config?: GameConfig;
-  cursorElement: HTMLElement | null;
-  elementMatrix?: HTMLElement[][];
-  cellsIncorrect?: boolean[];
-  gridElement: HTMLElement | null;
-  inputElement: HTMLInputElement | null;
-  introElement: HTMLElement | null;
+  config: GameConfig;
+  cursorElement: HTMLElement;
+  elementMatrix: HTMLElement[][] = [];
+  cellsIncorrect: boolean[] = [];
+  gridElement: HTMLElement;
+  inputElement: HTMLInputElement;
+  introElement: HTMLElement;
   lastInputValue: string = "";
   showResults: (results: GameResults) => void = () => { };
   startTime?: number;
@@ -45,63 +45,8 @@ export class Game {
     this.showResults = showResults;
   }
 
-  // TODO: there has to be a better way to deal with nullable fields
-  getConfig(): GameConfig {
-    const { config } = this;
-
-    if (!config) {
-      throw new Error("config is null or not defined");
-    }
-
-    return config;
-  }
-
-  getInputElement(): HTMLInputElement {
-    const { inputElement } = this;
-
-    if (!inputElement) {
-      throw new Error("inputElement is null or not defined");
-    }
-
-    return inputElement;
-  }
-
-  getCursorElement(): HTMLElement {
-    const { cursorElement } = this;
-
-    if (!cursorElement) {
-      throw new Error("cursorElement is null or not defined");
-    }
-
-    return cursorElement;
-  }
-
-  getGridElement(): HTMLElement {
-    const { gridElement } = this;
-
-    if (!gridElement) {
-      throw new Error("gridElement is null or not defined");
-    }
-
-    return gridElement;
-  }
-
-  getIntroElement(): HTMLElement {
-    const { introElement } = this;
-
-    if (!introElement) {
-      throw new Error("introElement is null or not defined");
-    }
-
-    return introElement;
-  }
-
   getCellAtIndex(index: number): HTMLElement {
     const { size, elementMatrix } = this;
-
-    if (!elementMatrix) {
-      throw new Error("elementMatrix is undefined, did you forget to call initializeDOM?");
-    }
 
     const row = Math.floor(index / size);
     const col = index % size;
@@ -129,7 +74,7 @@ export class Game {
     // would be cool to have custom cursor properties per config
 
     const cell = this.getCellAtIndex(index);
-    const cursorElement = this.getCursorElement();
+    const { cursorElement } = this;
     const spanElement = cell.childNodes[0] as HTMLElement;
 
     if (!spanElement) {
@@ -185,7 +130,7 @@ export class Game {
   }
 
   initializeConfig(): void {
-    const { delimeter, tokens } = this.getConfig();
+    const { config: { delimeter, tokens } } = this;
 
     this.cellsIncorrect = [];
 
@@ -219,10 +164,6 @@ export class Game {
   initializeDOM(): void {
     const { gridElement, size } = this;
 
-    if (!gridElement) {
-      throw new Error("gridElement is null or not defined");
-    }
-
     this.elementMatrix = [];
 
     for (let row = 0; row < size; row++) {
@@ -252,9 +193,7 @@ export class Game {
     this.state = GameState.InProgress;
     this.startTime = Date.now();
 
-    const cursorElement = this.getCursorElement();
-    const gridElement = this.getGridElement();
-    const introElement = this.getIntroElement();
+    const { cursorElement, gridElement, introElement } = this;
 
     cursorElement.classList.remove(HIDDEN_CLASS);
     gridElement.classList.remove(BLURRED_CLASS)
@@ -275,8 +214,7 @@ export class Game {
     this.state = GameState.Results;
     this.startTime = undefined;
 
-    const cursorElement = this.getCursorElement();
-    const gridElement = this.getGridElement();
+    const { cursorElement, gridElement } = this;
 
     cursorElement.classList.add(HIDDEN_CLASS);
     gridElement.classList.add(BLURRED_CLASS)
@@ -288,8 +226,7 @@ export class Game {
   }
 
   processInput(input: string): void {
-    const { startTime, state } = this;
-    const { delimeter, tokens } = this.getConfig();
+    const { startTime, state, config: { delimeter, tokens } } = this;
 
     if (state === GameState.Results) {
       return;
@@ -353,13 +290,12 @@ export class Game {
       this.setCursorToCellAtIndex(0);
     }
 
-    const inputElement = this.getInputElement();
-    inputElement.value = input;
+    this.inputElement.value = input;
   }
 
   handleInputEvent(e: Event): void {
     // e.target?
-    const inputElement = this.getInputElement();
+    const { inputElement } = this;
 
     if ((e as InputEvent).inputType === "deleteContentBackward") {
       inputElement.value = this.lastInputValue;
@@ -371,13 +307,13 @@ export class Game {
 
   handleFocusOutEvent(e: Event): void {
     // e.target?
-    const inputElement = this.getInputElement();
+    const { inputElement } = this;
 
     inputElement.focus();
   }
 
   initializeInput(): void {
-    const inputElement = this.getInputElement();
+    const { inputElement } = this;
 
     inputElement.addEventListener("input", this.handleInputEvent.bind(this));
     inputElement.addEventListener("focusout", this.handleFocusOutEvent.bind(this));

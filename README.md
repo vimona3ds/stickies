@@ -37,6 +37,9 @@ you'll see lol
 - [x] cursor
 - [x] configuration system!
 
+### 9/29/24
+- [x] simplify Game types (non optional), remove getter functions
+
 ### eventually... (in rough order of priority)
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state
