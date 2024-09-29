@@ -29,12 +29,38 @@ you'll see lol
 ### 9/28/24
 - [x] Grid class with placeholder input
 - [x] fix module imports
-- [ ] fix bug where cell incorrect class overrides correct class (use enum in declaration file, clear classes, change setCellClassNameByIndex to use the enum)
-- [ ] Input class?
+- [x] fix bug where cell incorrect class overrides correct class (use enum in declaration file, clear classes, change setCellClassNameByIndex to use the enum)
+- [ ] ~~Input class?~~
+- [x] make the game actually work
+- [x] intro card
+- [x] results card
+- [x] cursor
+- [x] configuration system!
 
-### eventually...
-- [ ] word/quotelists
-- [ ] configuration system
-- [ ] enable source maps in ts/webpack config
-- [ ] linter
-- [ ] prod vs dev webpack config
+### eventually... (in rough order of priority)
+- [ ] refactor
+  - [ ] Game to use pure reducer logic + disjoint union type for state
+  - [ ] split Game into diff classes or functions and generally simplify. we are passing a lot of shit around that doesnt need to be passed around. Game concerns itself with things that it shouldnt. decide on boundaries and enforce
+- [ ] mobile support!!!
+- [ ] history feature
+  - [ ] integrate localstorage
+  - [ ] design history board
+  - [ ] implement history board
+- [ ] share button
+- [ ] improve sounds
+- [ ] improve animations
+- [ ] improve styles/branding
+- [ ] dev
+  - [ ] linter
+  - [ ] enable source maps in ts/webpack config
+  - [ ] prod vs dev webpack config
+- [ ] config
+  - [ ] custom layout system!!!!!
+  - [ ] use layout field
+
+### EVENTUALLY...
+- [ ] percentiles
+- [ ] analytics
+- [ ] i18n
+- [ ] accessibility
+- [ ] perf optimization

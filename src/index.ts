@@ -11,7 +11,7 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
   const resultsElement = document.getElementById('game-results');
 
   if (!gameElement || !gridElement || !inputElement || !cursorElement || !introElement || !resultsElement || !isHTMLInputElement(inputElement)) {
-    // TODO: create them
+    // TODO: create them?
     return;
   }
 
