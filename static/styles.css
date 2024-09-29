@@ -1,3 +1,5 @@
+/* TODO: clean this shit up */
+
 body {
   display: flex;
   flex-wrap: wrap;
@@ -15,14 +17,18 @@ body {
 
 #cursor {
   position: absolute;
-  height: 100%;
-  width: 0.125rem;
+  height: 1.5rem;
+  width: 0.1rem;
   background-color: #fff;
-  left: 0;
-  top: 0;
+  transition: all 0.1s ease-out;
+}
+
+#cursor.incorrect {
+  background-color: #f00;
 }
 
 #game {
+  position: relative;
   aspect-ratio: 1;
   border: 1px solid #aaa;
   /* box-shadow: -0.5rem -0.5rem 0 #aaa; */
@@ -35,13 +41,29 @@ body {
   grid-template: repeat(10, 1fr) / repeat(10, 1fr);
 }
 
-.word {
+#game-intro,
+#game-results {
+  position: absolute;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  color: #777;
 }
 
+/* .word {
+  display: flex;
+  flex-wrap: wrap;
+} */
+
 .letter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  width: 1.5rem;
+  height: 1.5rem;
   color: #777;
 }
 
@@ -52,22 +74,25 @@ body {
   opacity: 0;
 }
 
-.correct {
-  color: #ddd;
+.hidden {
+  opacity: 0;
 }
 
 .incorrect {
   color: #f00;
+  opacity: 1;
 }
 
-.extra {
+.highlighted {
+  color: #ddd;
+  opacity: 1;
+}
+
+/* .extra {
   color: #b00;
-}
+} */
 
-#game.unfocused {
+/* would be cool if the grid was random or animated or something while blurred */
+.blurred {
   filter: blur(4px);
-}
-
-#game.done {
-  display: none;
 }

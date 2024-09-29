@@ -1,4 +1,4 @@
-declare type GridConfig = {
+declare type GameConfig = {
   id: number,
   rows: number,
   cols: number,
@@ -7,16 +7,14 @@ declare type GridConfig = {
   tokens: Token[]
 }
 
-declare type LayoutToken = {
+declare type GameToken = {
   content: string;
-  revealedAsTyped: boolean;
-  highlightAsTyped: boolean;
-  errorsHighlighted: boolean;
+  hiddenUntilCorrect?: boolean;
+  highlightedWhenCorrect?: boolean;
+  errorsShown?: boolean;
 }
 
-declare enum CellType {
-  NONE,
-  CORRECT,
-  INCORRECT,
-  HIDDEN
+declare type GameResults = {
+  timeInSeconds: string;
+  accuracyPercentage: string;
 }
