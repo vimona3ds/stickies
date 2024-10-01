@@ -40,6 +40,9 @@ you'll see lol
 ### 9/29/24
 - [x] simplify Game types (non optional), remove getter functions
 
+### 9/30/24
+ok fuck this. can i get this ready to upload TODAY?
+
 ### eventually... (in rough order of priority)
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state
