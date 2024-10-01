@@ -41,7 +41,13 @@ you'll see lol
 - [x] simplify Game types (non optional), remove getter functions
 
 ### 9/30/24
-ok fuck this. can i get this ready to upload TODAY?
+~~ok fuck this. can i get this ready to upload TODAY?~~
+ok i can get close. but i want to submit it when it's actually fun. and it isn't rn.
+so i'm gonna wait. but im gonna stop working on principles, get something going
+then clean up later. i may regret it but fuck i just want this done.
+- [x] mobile support almost
+- [x] style cleanup
+- [x] broken timer thing
 
 ### eventually... (in rough order of priority)
 - [ ] refactor
@@ -56,6 +62,7 @@ ok fuck this. can i get this ready to upload TODAY?
 - [ ] improve sounds
 - [ ] improve animations
 - [ ] improve styles/branding
+- [ ] theme system?
 - [ ] dev
   - [ ] linter
   - [ ] enable source maps in ts/webpack config

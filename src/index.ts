@@ -2,34 +2,47 @@ import { Game } from './Game';
 import { isHTMLInputElement } from './utils/isHTMLInputElement';
 
 (() => {
-  const wordlist = ["hello", "world", "foo", "bar", "baz", "qux", "quux", "corge", "grault", "garply", "waldo", "fred", "plugh", "xyzzy", "thud"];
+  const wordlist = ["power", "life", "notes", "house", "line", "around", "real", "sound", "more", "live", "those"]
   const gameElement = document.getElementById('game');
+  const gameContainerElement = document.getElementById('game-container');
   const gridElement = document.getElementById('game-grid');
   const inputElement = document.getElementById('game-input');
   const cursorElement = document.getElementById('cursor');
   const introElement = document.getElementById('game-intro');
   const resultsElement = document.getElementById('game-results');
+  const idElement = document.getElementById('header-id');
 
-  if (!gameElement || !gridElement || !inputElement || !cursorElement || !introElement || !resultsElement || !isHTMLInputElement(inputElement)) {
+  if (idElement) {
+    // const today = new Date();
+    // const month = today.getMonth() + 1;
+    // const day = today.getDate();
+    // const year = today.getFullYear();
+    // idElement.innerHTML = `${month}/${day}/${year}`;
+    idElement.innerHTML = "00:00:00"
+  }
+
+  if (!gameContainerElement || !gameElement || !gridElement || !inputElement || !cursorElement || !introElement || !resultsElement || !isHTMLInputElement(inputElement)) {
     // TODO: create them?
     return;
   }
 
-  const tokenAmount = Math.floor(Math.random() * 5) + 2;
-  const delimeter = "";
+  const delimeter = " ";
   const generateToken = () => {
     return {
       content: wordlist[Math.floor(Math.random() * wordlist.length)],
-      hiddenUntilCorrect: Math.random() > 0.5,
-      highlightedWhenCorrect: Math.random() > 0.5,
-      errorsShown: Math.random() > 0.5,
     }
   }
 
-  const generateTokens = (amount: number) => {
+  const generateTokens = () => {
     const tokens = [];
-    for (let i = 0; i < amount; i++) {
-      tokens.push(generateToken());
+    let letters = 0;
+    while (letters < 100) {
+      const token = generateToken();
+      if (letters + token.content.length + 1 > 100) {
+        break;
+      }
+      letters += token.content.length + 1
+      tokens.push(token);
     }
     return tokens;
   }
@@ -40,7 +53,7 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
     cols: 10,
     layout: "idk",
     delimeter,
-    tokens: generateTokens(tokenAmount),
+    tokens: generateTokens(),
   }
 
   const showResults = (results: GameResults) => {
@@ -49,7 +62,7 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
   }
 
   // god this sucks
-  const game = new Game(gridElement, cursorElement, inputElement, introElement, config, showResults);
+  const game = new Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, config, showResults);
 
   game.initialize();
 })();

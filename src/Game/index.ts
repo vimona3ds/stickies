@@ -23,17 +23,21 @@ export class Game {
   elementMatrix: HTMLElement[][] = [];
   cellsIncorrect: boolean[] = [];
   gridElement: HTMLElement;
+  gameContainerElement: HTMLElement;
   inputElement: HTMLInputElement;
   introElement: HTMLElement;
   lastInputValue: string = "";
   showResults: (results: GameResults) => void = () => { };
   startTime?: number;
+  cursorCellIndex: number = -1;
+  timer?: NodeJS.Timeout;
 
   constructor(
     gridElement: HTMLElement,
     cursorElement: HTMLElement,
     inputElement: HTMLInputElement,
     introElement: HTMLElement,
+    gameContainerElement: HTMLElement,
     config: GameConfig,
     showResults: (results: GameResults) => void
   ) {
@@ -41,6 +45,7 @@ export class Game {
     this.cursorElement = cursorElement;
     this.inputElement = inputElement;
     this.introElement = introElement;
+    this.gameContainerElement = gameContainerElement;
     this.config = config;
     this.showResults = showResults;
   }
@@ -190,14 +195,51 @@ export class Game {
       throw new Error("game cannot be started because it has already started");
     }
 
-    this.state = GameState.InProgress;
-    this.startTime = Date.now();
+    console.log(this.gridElement);
+    // visual countdown of 3 seconds
+    (async () => {
+      const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    const { cursorElement, gridElement, introElement } = this;
+      for (let i = 3; i >= 1; i--) {
+        this.introElement.innerHTML = i.toString();
+        await wait(1000);
+      }
 
-    cursorElement.classList.remove(HIDDEN_CLASS);
-    gridElement.classList.remove(BLURRED_CLASS)
-    introElement.classList.add(HIDDEN_CLASS);
+      this.state = GameState.InProgress;
+
+      const { cursorElement, gridElement, introElement } = this;
+
+      cursorElement.classList.remove(HIDDEN_CLASS);
+      gridElement.classList.remove(BLURRED_CLASS)
+      introElement.classList.add(HIDDEN_CLASS);
+
+
+      gridElement.addEventListener("transitionend", () => {
+        if (this.startTime === undefined && this.timer === undefined) {
+          this.startTime = Date.now();
+          this.timer = setInterval(() => {
+            console.log(1);
+            if (this.startTime === undefined) {
+              console.log(2);
+              clearInterval(this.timer);
+              return;
+            }
+
+            const headerId = document.getElementById("header-id")
+
+            if (!headerId) {
+              return;
+            }
+
+            const time = Date.now() - this.startTime;
+            const minutes = Math.floor(time / 60000);
+            const seconds = ((time % 60000) / 1000).toFixed(0);
+            headerId.innerHTML = `${minutes}:${parseInt(seconds) < 10 ? `0${seconds}` : seconds}`;
+          }, 100);
+        }
+      });
+    })();
+
   }
 
   end() {
@@ -219,6 +261,11 @@ export class Game {
     cursorElement.classList.add(HIDDEN_CLASS);
     gridElement.classList.add(BLURRED_CLASS)
 
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = undefined;
+    }
+
     this.showResults({
       timeInSeconds: timeInSeconds.toFixed(2),
       accuracyPercentage: accuracyPercentage.toFixed(2)
@@ -234,23 +281,22 @@ export class Game {
 
     if (startTime === undefined) {
       // game hasn't started yet
-      this.start();
+      // this.start();
     }
 
     // find where input differs
     let errorIdx = -1;
-    let cursorIdx = -1;
     let i = 0;
 
     const processInputAtIndex = (index: number, char: string, token: GameToken): void => {
       if (index < input.length && errorIdx === -1) {
         if (input[index] === char) {
           this.markCellCorrectAtIndex(index, token);
-          cursorIdx = index + 1;
+          this.cursorCellIndex = index + 1;
         } else {
           this.markCellIncorrectAtIndex(index, token);
           errorIdx = index;
-          cursorIdx = index;
+          this.cursorCellIndex = index;
         }
       } else {
         this.markCellUntypedAtIndex(index, token);
@@ -284,8 +330,8 @@ export class Game {
       this.end();
     }
 
-    if (cursorIdx !== -1) {
-      this.setCursorToCellAtIndex(cursorIdx, errorIdx === cursorIdx);
+    if (this.cursorCellIndex !== -1) {
+      this.setCursorToCellAtIndex(this.cursorCellIndex, errorIdx === this.cursorCellIndex);
     } else {
       this.setCursorToCellAtIndex(0);
     }
@@ -303,22 +349,44 @@ export class Game {
 
     this.processInput(inputElement.value)
     this.lastInputValue = inputElement.value;
+    //
+  }
+
+  handleFocusEvent(e: Event): void {
+    if (window.innerHeight > window.innerWidth || window.innerWidth < 800) {
+      this.gameContainerElement.classList.add('keyboard-open');
+    }
+
+    if (this.state === GameState.NotStarted) {
+      this.start();
+    }
   }
 
   handleFocusOutEvent(e: Event): void {
-    // e.target?
-    const { inputElement } = this;
-
-    inputElement.focus();
+    this.gameContainerElement.classList.remove('keyboard-open');
   }
 
   initializeInput(): void {
     const { inputElement } = this;
 
     inputElement.addEventListener("input", this.handleInputEvent.bind(this));
+    inputElement.addEventListener("focus", this.handleFocusEvent.bind(this));
     inputElement.addEventListener("focusout", this.handleFocusOutEvent.bind(this));
+    // plz move this out
+    window.addEventListener("resize", () => {
+      if (this.cursorCellIndex === -1) {
+        return;
+      }
 
-    inputElement.focus();
+      this.setCursorToCellAtIndex(this.cursorCellIndex);
+    });
+
+    setTimeout(() => {
+      window.addEventListener("keyup", e => {
+        inputElement.focus();
+        e.stopImmediatePropagation();
+      })
+    }, 500)
   }
 
   initialize() {
