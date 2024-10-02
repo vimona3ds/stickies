@@ -33,12 +33,13 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
     }
   }
 
+  const size = 8;
   const generateTokens = () => {
     const tokens = [];
     let letters = 0;
-    while (letters < 100) {
+    while (letters < size * size) {
       const token = generateToken();
-      if (letters + token.content.length + 1 > 100) {
+      if (letters + token.content.length + 1 > size * size) {
         break;
       }
       letters += token.content.length + 1
@@ -49,8 +50,8 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
 
   const config: GameConfig = {
     id: 0,
-    rows: 10,
-    cols: 10,
+    rows: size,
+    cols: size,
     layout: "idk",
     delimeter,
     tokens: generateTokens(),

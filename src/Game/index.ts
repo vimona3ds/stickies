@@ -15,7 +15,7 @@ enum GameState {
 // TODO: custom grid size based on config
 // TODO: reducer logic based on GameState and disjoint union type
 export class Game {
-  size = 10;
+  size = 8;
 
   state: GameState = GameState.NotStarted;
   config: GameConfig;
@@ -195,7 +195,6 @@ export class Game {
       throw new Error("game cannot be started because it has already started");
     }
 
-    console.log(this.gridElement);
     // visual countdown of 3 seconds
     (async () => {
       const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -218,9 +217,7 @@ export class Game {
         if (this.startTime === undefined && this.timer === undefined) {
           this.startTime = Date.now();
           this.timer = setInterval(() => {
-            console.log(1);
             if (this.startTime === undefined) {
-              console.log(2);
               clearInterval(this.timer);
               return;
             }
@@ -354,7 +351,7 @@ export class Game {
 
   handleFocusEvent(e: Event): void {
     if (window.innerHeight > window.innerWidth || window.innerWidth < 800) {
-      this.gameContainerElement.classList.add('keyboard-open');
+      document.body.classList.add('keyboard-open');
     }
 
     if (this.state === GameState.NotStarted) {
@@ -363,7 +360,7 @@ export class Game {
   }
 
   handleFocusOutEvent(e: Event): void {
-    this.gameContainerElement.classList.remove('keyboard-open');
+    document.body.classList.remove('keyboard-open');
   }
 
   initializeInput(): void {

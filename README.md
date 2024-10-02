@@ -49,7 +49,14 @@ then clean up later. i may regret it but fuck i just want this done.
 - [x] style cleanup
 - [x] broken timer thing
 
-### eventually... (in rough order of priority)
+### 10/01/24
+happy october!!!!
+- [x] minor style updates (header, keyboard open)
+- [x] fix choppy animations
+- [x] fix mobile compatibility!!! including reducing grid size
+
+
+### eventually...
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state
   - [ ] split Game into diff classes or functions and generally simplify. we are passing a lot of shit around that doesnt need to be passed around. Game concerns itself with things that it shouldnt. decide on boundaries and enforce
@@ -70,6 +77,9 @@ then clean up later. i may regret it but fuck i just want this done.
 - [ ] config
   - [ ] custom layout system!!!!!
   - [ ] use layout field
+- [ ] clean up styles
+- [ ] press esc to unfocus input
+- [ ] figure out where to show timer / acc
 
 ### EVENTUALLY...
 - [ ] percentiles
