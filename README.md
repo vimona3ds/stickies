@@ -55,6 +55,10 @@ happy october!!!!
 - [x] fix choppy animations
 - [x] fix mobile compatibility!!! including reducing grid size
 
+### 10/02/24
+- [x] fix timer and its styles
+- [x] fix bug where timer would reset after game end
+- [x] cleaner animations
 
 ### eventually...
 - [ ] refactor
@@ -77,9 +81,12 @@ happy october!!!!
 - [ ] config
   - [ ] custom layout system!!!!!
   - [ ] use layout field
-- [ ] clean up styles
+- [ ] clean up styles -- just put game state as class on body instead of all these one off class names?
 - [ ] press esc to unfocus input
 - [ ] figure out where to show timer / acc
+- [ ] shouldnt be able to type in grid before game starts
+- [ ] timer should not suddenly show up
+- [ ] figure out better place for timer? or dont show it at all?
 
 ### EVENTUALLY...
 - [ ] percentiles

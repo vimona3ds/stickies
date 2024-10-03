@@ -189,6 +189,22 @@ export class Game {
     }
   }
 
+  calculateResults(): GameResults {
+    const { startTime, cellsIncorrect } = this;
+
+    if (startTime === undefined) {
+      throw new Error("idek anymore");
+    }
+
+    const timeInSeconds = (Date.now() - startTime) / 1000;
+    const accuracyPercentage = 100 * (1 - cellsIncorrect.filter(Boolean).length / cellsIncorrect.length);
+
+    return {
+      timeInSeconds: `${timeInSeconds.toFixed(2)}s`,
+      accuracyPercentage: `${accuracyPercentage.toFixed(2)}%`,
+    }
+  }
+
   start() {
     // can we use this.state to check if game has started?
     if (this.startTime !== undefined) {
@@ -214,6 +230,9 @@ export class Game {
 
 
       gridElement.addEventListener("transitionend", () => {
+        if (this.state === GameState.Results) {
+          return;
+        }
         if (this.startTime === undefined && this.timer === undefined) {
           this.startTime = Date.now();
           this.timer = setInterval(() => {
@@ -222,17 +241,15 @@ export class Game {
               return;
             }
 
-            const headerId = document.getElementById("header-id")
+            const gameResultsElement = document.getElementById('game-results');
+            const { accuracyPercentage, timeInSeconds } = this.calculateResults();
 
-            if (!headerId) {
+            if (!gameResultsElement) {
               return;
             }
 
-            const time = Date.now() - this.startTime;
-            const minutes = Math.floor(time / 60000);
-            const seconds = ((time % 60000) / 1000).toFixed(0);
-            headerId.innerHTML = `${minutes}:${parseInt(seconds) < 10 ? `0${seconds}` : seconds}`;
-          }, 100);
+            gameResultsElement.innerHTML = `${timeInSeconds}<br />${accuracyPercentage}`;
+          }, 10);
         }
       });
     })();
@@ -247,9 +264,6 @@ export class Game {
       throw new Error("game cannot be ended because it has not started");
     }
 
-    const timeInSeconds = (Date.now() - startTime) / 1000;
-    const accuracyPercentage = 100 * (1 - cellsIncorrect.filter(Boolean).length / cellsIncorrect.length);
-
     this.state = GameState.Results;
     this.startTime = undefined;
 
@@ -263,10 +277,9 @@ export class Game {
       this.timer = undefined;
     }
 
-    this.showResults({
-      timeInSeconds: timeInSeconds.toFixed(2),
-      accuracyPercentage: accuracyPercentage.toFixed(2)
-    })
+    document.body.classList.remove('keyboard-open');
+    document.body.classList.add('complete');
+    this.inputElement.setAttribute("disabled", "true");
   }
 
   processInput(input: string): void {
@@ -354,7 +367,10 @@ export class Game {
       document.body.classList.add('keyboard-open');
     }
 
+    console.log`1`;
+
     if (this.state === GameState.NotStarted) {
+      console.log`2`;
       this.start();
     }
   }

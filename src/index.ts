@@ -10,16 +10,6 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
   const cursorElement = document.getElementById('cursor');
   const introElement = document.getElementById('game-intro');
   const resultsElement = document.getElementById('game-results');
-  const idElement = document.getElementById('header-id');
-
-  if (idElement) {
-    // const today = new Date();
-    // const month = today.getMonth() + 1;
-    // const day = today.getDate();
-    // const year = today.getFullYear();
-    // idElement.innerHTML = `${month}/${day}/${year}`;
-    idElement.innerHTML = "00:00:00"
-  }
 
   if (!gameContainerElement || !gameElement || !gridElement || !inputElement || !cursorElement || !introElement || !resultsElement || !isHTMLInputElement(inputElement)) {
     // TODO: create them?
@@ -58,8 +48,8 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
   }
 
   const showResults = (results: GameResults) => {
-    resultsElement.innerHTML = `${results.timeInSeconds}s, ${results.accuracyPercentage}%`;
-    resultsElement.classList.remove('hidden');
+    // resultsElement.innerHTML = `${results.timeInSeconds}s, ${results.accuracyPercentage}%`;
+    // resultsElement.classList.remove('hidden');
   }
 
   // god this sucks
