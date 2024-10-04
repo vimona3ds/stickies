@@ -60,6 +60,9 @@ happy october!!!!
 - [x] fix bug where timer would reset after game end
 - [x] cleaner animations
 
+### 10/03/24
+- [x] fix cursor not updating position when game container moves and game starts
+
 ### eventually...
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state

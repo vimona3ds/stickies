@@ -29,7 +29,7 @@ export class Game {
   lastInputValue: string = "";
   showResults: (results: GameResults) => void = () => { };
   startTime?: number;
-  cursorCellIndex: number = -1;
+  cursorCellIndex: number = 0;
   timer?: NodeJS.Timeout;
 
   constructor(
@@ -340,11 +340,7 @@ export class Game {
       this.end();
     }
 
-    if (this.cursorCellIndex !== -1) {
-      this.setCursorToCellAtIndex(this.cursorCellIndex, errorIdx === this.cursorCellIndex);
-    } else {
-      this.setCursorToCellAtIndex(0);
-    }
+    this.setCursorToCellAtIndex(this.cursorCellIndex, errorIdx === this.cursorCellIndex);
 
     this.inputElement.value = input;
   }
@@ -386,11 +382,10 @@ export class Game {
     inputElement.addEventListener("focus", this.handleFocusEvent.bind(this));
     inputElement.addEventListener("focusout", this.handleFocusOutEvent.bind(this));
     // plz move this out
+    this.gameContainerElement.addEventListener("transitionend", () => {
+      this.setCursorToCellAtIndex(this.cursorCellIndex);
+    });
     window.addEventListener("resize", () => {
-      if (this.cursorCellIndex === -1) {
-        return;
-      }
-
       this.setCursorToCellAtIndex(this.cursorCellIndex);
     });
 
