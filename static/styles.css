@@ -94,11 +94,13 @@ body.keyboard-open #game-container {
 #game-results {
   font-size: 12vmin;
   font-weight: 900;
-  opacity: 0.4;
+  opacity: 0.2;
+  filter: blur(1vmin);
 }
 
 body.complete #game-results {
   opacity: 1;
+  filter: blur(0);
 }
 
 /* .word {
@@ -126,7 +128,8 @@ body.complete #game-results {
 
 /* todo convert all these fucking ids to classes so i dont have to do this */
 .hidden,
-#cursor.hidden {
+#cursor.hidden,
+#game-results.hidden {
   opacity: 0;
 }
 
@@ -146,5 +149,5 @@ body.complete #game-results {
 
 /* would be cool if the grid was random or animated or something while blurred */
 #game-grid.blurred {
-  filter: blur(16px);
+  filter: blur(2vmin);
 }

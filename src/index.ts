@@ -53,7 +53,7 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
   }
 
   // god this sucks
-  const game = new Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, config, showResults);
+  const game = new Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, resultsElement, config, showResults);
 
   game.initialize();
 })();

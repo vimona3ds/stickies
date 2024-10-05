@@ -63,6 +63,9 @@ happy october!!!!
 ### 10/03/24
 - [x] fix cursor not updating position when game container moves and game starts
 
+### 10/04/24
+- [x] clean up animation/styles for game results (blur while playing, unblur at end, transition from hidden to not hidden)
+
 ### eventually...
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state

@@ -26,6 +26,7 @@ export class Game {
   gameContainerElement: HTMLElement;
   inputElement: HTMLInputElement;
   introElement: HTMLElement;
+  resultsElement: HTMLElement;
   lastInputValue: string = "";
   showResults: (results: GameResults) => void = () => { };
   startTime?: number;
@@ -38,6 +39,7 @@ export class Game {
     inputElement: HTMLInputElement,
     introElement: HTMLElement,
     gameContainerElement: HTMLElement,
+    resultsElement: HTMLElement,
     config: GameConfig,
     showResults: (results: GameResults) => void
   ) {
@@ -46,6 +48,7 @@ export class Game {
     this.inputElement = inputElement;
     this.introElement = introElement;
     this.gameContainerElement = gameContainerElement;
+    this.resultsElement = resultsElement;
     this.config = config;
     this.showResults = showResults;
   }
@@ -222,12 +225,12 @@ export class Game {
 
       this.state = GameState.InProgress;
 
-      const { cursorElement, gridElement, introElement } = this;
+      const { cursorElement, gridElement, introElement, resultsElement } = this;
 
       cursorElement.classList.remove(HIDDEN_CLASS);
       gridElement.classList.remove(BLURRED_CLASS)
       introElement.classList.add(HIDDEN_CLASS);
-
+      resultsElement.classList.remove(HIDDEN_CLASS);
 
       gridElement.addEventListener("transitionend", () => {
         if (this.state === GameState.Results) {
