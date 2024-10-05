@@ -67,6 +67,10 @@ happy october!!!!
 - [x] clean up animation/styles for game results (blur while playing, unblur at end, transition from hidden to not hidden)
 - [x] fix keyboard remaining open on mobile after game complete
 
+### 10/05/24
+- [x] clean up types
+- [x] begin game reducer (boilerplate)
+
 ### eventually...
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state

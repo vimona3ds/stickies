@@ -1,3 +1,5 @@
+import { GameStatus } from "./types";
+
 const CURSOR_MARGIN_RIGHT = 2;
 const CURSOR_MARGIN_BOTTOM = -2;
 const HIGHLIGHTED_CLASS = "highlighted";
@@ -5,19 +7,13 @@ const INCORRECT_CLASS = "incorrect";
 const HIDDEN_CLASS = "hidden";
 const BLURRED_CLASS = "blurred";
 
-enum GameState {
-  NotStarted,
-  InProgress,
-  Results,
-}
-
 // TODO: default members to avoid nullable?
 // TODO: custom grid size based on config
-// TODO: reducer logic based on GameState and disjoint union type
+// TODO: reducer logic based on GameStatus and disjoint union type
 export class Game {
   size = 8;
 
-  state: GameState = GameState.NotStarted;
+  state: GameStatus = GameStatus.READY;
   config: GameConfig;
   cursorElement: HTMLElement;
   elementMatrix: HTMLElement[][] = [];
@@ -28,7 +24,6 @@ export class Game {
   introElement: HTMLElement;
   resultsElement: HTMLElement;
   lastInputValue: string = "";
-  showResults: (results: GameResults) => void = () => { };
   startTime?: number;
   cursorCellIndex: number = 0;
   timer?: NodeJS.Timeout;
@@ -41,7 +36,6 @@ export class Game {
     gameContainerElement: HTMLElement,
     resultsElement: HTMLElement,
     config: GameConfig,
-    showResults: (results: GameResults) => void
   ) {
     this.gridElement = gridElement;
     this.cursorElement = cursorElement;
@@ -50,7 +44,6 @@ export class Game {
     this.gameContainerElement = gameContainerElement;
     this.resultsElement = resultsElement;
     this.config = config;
-    this.showResults = showResults;
   }
 
   getCellAtIndex(index: number): HTMLElement {
@@ -223,7 +216,7 @@ export class Game {
         await wait(1000);
       }
 
-      this.state = GameState.InProgress;
+      this.state = GameStatus.IN_PROGRESS;
 
       const { cursorElement, gridElement, introElement, resultsElement } = this;
 
@@ -233,7 +226,7 @@ export class Game {
       resultsElement.classList.remove(HIDDEN_CLASS);
 
       gridElement.addEventListener("transitionend", () => {
-        if (this.state === GameState.Results) {
+        if (this.state === GameStatus.RESULTS) {
           return;
         }
         if (this.startTime === undefined && this.timer === undefined) {
@@ -267,7 +260,7 @@ export class Game {
       throw new Error("game cannot be ended because it has not started");
     }
 
-    this.state = GameState.Results;
+    this.state = GameStatus.RESULTS;
     this.startTime = undefined;
 
     const { cursorElement, gridElement } = this;
@@ -289,7 +282,7 @@ export class Game {
   processInput(input: string): void {
     const { startTime, state, config: { delimeter, tokens } } = this;
 
-    if (state === GameState.Results) {
+    if (state === GameStatus.RESULTS) {
       return;
     }
 
@@ -367,10 +360,7 @@ export class Game {
       document.body.classList.add('keyboard-open');
     }
 
-    console.log`1`;
-
-    if (this.state === GameState.NotStarted) {
-      console.log`2`;
+    if (this.state === GameStatus.READY) {
       this.start();
     }
   }

@@ -47,13 +47,8 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
     tokens: generateTokens(),
   }
 
-  const showResults = (results: GameResults) => {
-    // resultsElement.innerHTML = `${results.timeInSeconds}s, ${results.accuracyPercentage}%`;
-    // resultsElement.classList.remove('hidden');
-  }
-
   // god this sucks
-  const game = new Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, resultsElement, config, showResults);
+  const game = new Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, resultsElement, config);
 
   game.initialize();
 })();

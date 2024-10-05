@@ -1,3 +1,4 @@
+// todo: move these out
 declare type GameConfig = {
   id: number,
   rows: number,
