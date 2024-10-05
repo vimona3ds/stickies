@@ -283,6 +283,7 @@ export class Game {
     document.body.classList.remove('keyboard-open');
     document.body.classList.add('complete');
     this.inputElement.setAttribute("disabled", "true");
+    this.inputElement.blur();
   }
 
   processInput(input: string): void {

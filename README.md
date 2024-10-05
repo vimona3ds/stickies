@@ -65,6 +65,7 @@ happy october!!!!
 
 ### 10/04/24
 - [x] clean up animation/styles for game results (blur while playing, unblur at end, transition from hidden to not hidden)
+- [x] fix keyboard remaining open on mobile after game complete
 
 ### eventually...
 - [ ] refactor
