@@ -1,4 +1,5 @@
-import { Game } from './Game';
+import { _Game } from './_game';
+import { Game } from './game';
 import { isHTMLInputElement } from './utils/isHTMLInputElement';
 
 (() => {
@@ -40,15 +41,17 @@ import { isHTMLInputElement } from './utils/isHTMLInputElement';
 
   const config: GameConfig = {
     id: 0,
-    rows: size,
-    cols: size,
-    layout: "idk",
+    // rows: size,
+    // cols: size,
+    // layout: "idk",
     delimeter,
     tokens: generateTokens(),
   }
 
-  // god this sucks
-  const game = new Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, resultsElement, config);
+  const game = new Game(config);
 
-  game.initialize();
+  // god this sucks
+  const _game = new _Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, resultsElement, config);
+
+  _game.initialize();
 })();

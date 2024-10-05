@@ -1,19 +1,10 @@
-
-export enum GameActionType {
-  START = "START",
-  INPUT = "INPUT",
-  END = "END"
-}
-
-export type GameAction =
-  | { type: GameActionType.START }
-  | { type: GameActionType.INPUT, payload: string }
-  | { type: GameActionType.END }
+// prob move to reducer.ts
 
 export enum GameStatus {
   LOADING = "LOADING",
   READY = "READY",
-  IN_PROGRESS = "IN_PROGRESS",
+  COUNTDOWN = "COUNTDOWN",
+  PLAYING = "PLAYING",
   RESULTS = "RESULTS"
 }
 

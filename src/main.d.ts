@@ -1,9 +1,9 @@
 // todo: move these out
 declare type GameConfig = {
   id: number,
-  rows: number,
-  cols: number,
-  layout: string,
+  // rows: number,
+  // cols: number,
+  // layout: string,
   delimeter: string,
   tokens: Token[]
 }
