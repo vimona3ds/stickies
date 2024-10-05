@@ -1,5 +1,5 @@
 import { reduceGameState, createGameState } from './reducer';
-import { createShowResultsAction, createStartCountdownAction, createStartPlayingAction, GameActionType } from './actions';
+import { createShowResultsAction, createStartCountdownAction, createStartPlayingAction } from './actions';
 import { GameStatus, GameState } from './types';
 
 describe('reduceGameState', () => {
