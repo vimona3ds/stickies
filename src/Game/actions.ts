@@ -15,14 +15,14 @@ export function createStartCountdownAction(): GameAction {
   return { type: GameActionType.START_COUNTDOWN };
 }
 
-export function createStartPlayingAction() {
+export function createStartPlayingAction(): GameAction {
   return { type: GameActionType.START_PLAYING };
 }
 
-export function createProcessInputAction(payload: string) {
+export function createProcessInputAction(payload: string): GameAction {
   return { type: GameActionType.PROCESS_INPUT, payload };
 }
 
-export function createShowResultsAction() {
+export function createShowResultsAction(): GameAction {
   return { type: GameActionType.SHOW_RESULTS };
 }
