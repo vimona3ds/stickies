@@ -10,6 +10,15 @@ export function createGameState(config: GameConfig): GameState {
 
 export function reduceGameState(state: GameState, action: GameAction): GameState {
   switch (action.type) {
+    case GameActionType.SET_READY:
+      if (state.status !== GameStatus.LOADING) {
+        return state;
+      }
+
+      return {
+        ...state,
+        status: GameStatus.READY,
+      };
 
     case GameActionType.START_COUNTDOWN:
       if (state.status !== GameStatus.READY) {

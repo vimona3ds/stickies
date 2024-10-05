@@ -1,5 +1,5 @@
 import { reduceGameState, createGameState } from './reducer';
-import { createShowResultsAction, createStartCountdownAction, createStartPlayingAction } from './actions';
+import { createSetReadyAction, createShowResultsAction, createStartCountdownAction, createStartPlayingAction } from './actions';
 import { GameStatus, GameState } from './types';
 
 describe('reduceGameState', () => {
@@ -11,6 +11,18 @@ describe('reduceGameState', () => {
       delimeter: '',
       tokens: []
     });
+  });
+
+  it('should not be able to set ready unless game is in loading state', () => {
+    initialState.status = GameStatus.LOADING;
+    let action = createSetReadyAction();
+    let newState = reduceGameState(initialState, action);
+    expect(newState.status).toBe(GameStatus.READY);
+
+    initialState.status = GameStatus.PLAYING;
+    action = createSetReadyAction();
+    newState = reduceGameState(initialState, action);
+    expect(newState.status).toBe(GameStatus.PLAYING);
   });
 
   it('should not be able to start countdown unless game is in ready state', () => {
