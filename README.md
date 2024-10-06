@@ -70,6 +70,7 @@ happy october!!!!
 ### 10/05/24
 - [x] clean up types
 - [x] begin game reducer (boilerplate)
+- [x] jest setup!!!
 
 ### eventually...
 - [ ] refactor
