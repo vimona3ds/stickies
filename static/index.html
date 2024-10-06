@@ -6,30 +6,27 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, interactive-widget=resizes-content">
   <title>stickies</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-  <div id="header">
-    <span id="header-title">stickies!</span>
-    <span id="header-id">#0</span>
+<body class="game-loading">
+  <div class="header">
+    <span class="title">stickies!</span>
+    <span class="id">#0</span>
   </div>
-  <div id="game-container">
-    <input type="text" id="game-input">
-    <div id="game">
-      <div id="game-grid" class="blurred">
+  <div class="container">
+    <input type="text" class="input">
+    <div class="game">
+      <div class="grid">
       </div>
-      <div id="game-intro">
+      <div class="description">
         <p>tap or type to start</p>
       </div>
-      <div id="game-results" class="hidden">
-        0.00s<br />
-        100.00%
+      <div class="results">
       </div>
     </div>
   </div>
 
-  <div id="cursor" class="hidden"></div>
+  <div class="cursor"></div>
 </body>
 
 </html>

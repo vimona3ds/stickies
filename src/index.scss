@@ -1,5 +1,3 @@
-/* TODO: clean this shit up */
-
 :root {
   touch-action: none;
   height: 100%;
@@ -11,14 +9,13 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
-
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.5rem;
   background-color: #222;
   overflow: hidden;
 }
 
-#header {
+.header {
   text-align: center;
   color: #aaa;
   padding: 1rem;
@@ -29,24 +26,24 @@ body {
   transition: all 0.2s ease;
 }
 
-body.keyboard-open #header {
+/* body.keyboard-open #header {
   opacity: 0;
-}
+} */
 
-#cursor {
+.cursor {
   position: absolute;
-  height: 3vmin;
-  width: 3vmin;
-  opacity: 1;
+  height: 6vmin;
+  width: 6vmin;
+  opacity: 0;
   background-color: rgba(255, 255, 255, 0.25);
   transition: all 0.2s ease;
+
+  &.incorrect {
+    background-color: rgba(255, 0, 0, 0.25);
+  }
 }
 
-#cursor.incorrect {
-  background-color: rgba(255, 0, 0, 0.25)
-}
-
-#game-container {
+.container {
   width: 90vmin;
   height: 90vmin;
   position: absolute;
@@ -57,11 +54,11 @@ body.keyboard-open #header {
   will-change: 'transform';
 }
 
-body.keyboard-open #game-container {
+/* body.keyboard-open #game-container {
   transform: translate(-50%, -50svh);
-}
+} */
 
-#game {
+.game {
   position: relative;
   aspect-ratio: 1;
   border: 1px solid #aaa;
@@ -69,17 +66,16 @@ body.keyboard-open #game-container {
   font-size: 7vmin;
 }
 
-#game-grid {
+.grid {
   display: grid;
-  grid-template: repeat(8, 1fr) / repeat(8, 1fr);
   width: 100%;
   height: 100%;
-  filter: blur(0px);
+  filter: blur(2vmin);
   transition: all 0.2s ease;
 }
 
-#game-intro,
-#game-results {
+.description,
+.results {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -91,24 +87,42 @@ body.keyboard-open #game-container {
   transition: all 0.2s ease;
 }
 
-#game-results {
+.results {
   font-size: 12vmin;
   font-weight: 900;
   opacity: 0.2;
   filter: blur(1vmin);
 }
 
-body.complete #game-results {
+.token {
+  display: contents;
+}
+
+.char {
+  display: grid;
+  place-content: center;
+  color: #777;
+
+  &.incorrect {
+    color: #f00;
+  }
+
+  &.highlighted {
+    color: #ddd;
+  }
+}
+
+/* body.complete #game-results {
   opacity: 1;
   filter: blur(0);
-}
+} */
 
 /* .word {
   display: flex;
   flex-wrap: wrap;
 } */
 
-.letter {
+/* .letter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,9 +130,9 @@ body.complete #game-results {
   width: 100%;
   height: 100%;
   color: #777;
-}
+} */
 
-#game-input {
+.input {
   position: absolute;
   min-width: 0;
   inset: 0;
@@ -127,20 +141,10 @@ body.complete #game-results {
 }
 
 /* todo convert all these fucking ids to classes so i dont have to do this */
-.hidden,
+/* .hidden,
 #cursor.hidden,
 #game-results.hidden {
   opacity: 0;
-}
-
-.incorrect {
-  color: #f00;
-  opacity: 1;
-}
-
-.highlighted {
-  color: #ddd;
-  opacity: 1;
 }
 
 /* .extra {
@@ -148,6 +152,34 @@ body.complete #game-results {
 } */
 
 /* would be cool if the grid was random or animated or something while blurred */
-#game-grid.blurred {
+/* #game-grid.blurred {
   filter: blur(2vmin);
+} */
+
+body.game-loading {}
+
+body.game-ready {}
+
+body.game-playing {
+  .description {
+    opacity: 0;
+  }
+
+  .cursor {
+    opacity: 1;
+  }
+
+  .grid {
+    filter: blur(0vmin);
+  }
+}
+
+body.game-results {
+  .description {
+    opacity: 0;
+  }
+
+  .results {
+    opacity: 1;
+  }
 }

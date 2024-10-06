@@ -1,57 +1,56 @@
-import { _Game } from './_game';
 import { Game } from './game';
-import { isHTMLInputElement } from './utils/isHTMLInputElement';
+import { createToken } from './utils/createToken';
+import { isGameElements } from './utils/isElementGroup';
+import { GameGrid } from './gameGrid';
+import "./index.scss";
 
-(() => {
-  const wordlist = ["power", "life", "notes", "house", "line", "around", "real", "sound", "more", "live", "those"]
-  const gameElement = document.getElementById('game');
-  const gameContainerElement = document.getElementById('game-container');
-  const gridElement = document.getElementById('game-grid');
-  const inputElement = document.getElementById('game-input');
-  const cursorElement = document.getElementById('cursor');
-  const introElement = document.getElementById('game-intro');
-  const resultsElement = document.getElementById('game-results');
+const config: GameConfig = {
+  id: 0,
+  rows: 3,
+  cols: 3,
+  tokens: [
+    createToken({
+      content: "ace",
+      layout: {
+        type: "direction",
+        initialPosition: { x: 0, y: 0 },
+        direction: { x: 1, y: 1 },
+      },
+    }),
+    createToken({
+      content: "at",
+      layout: {
+        type: "direction",
+        initialPosition: { x: 1, y: 0 },
+        direction: { x: 1, y: 0 },
+      },
+    }),
+    createToken({
+      content: "b",
+      layout: {
+        type: "direction",
+        initialPosition: { x: 2, y: 1 },
+        direction: { x: 1, y: 0 },
+      },
+    }),
+  ]
+}
 
-  if (!gameContainerElement || !gameElement || !gridElement || !inputElement || !cursorElement || !introElement || !resultsElement || !isHTMLInputElement(inputElement)) {
-    // TODO: create them?
+window.addEventListener('load', (event) => {
+  const gameElements = {
+    gridElement: document.querySelector('.grid'),
+    cursorElement: document.querySelector('.cursor'),
+    inputElement: document.querySelector('.input'),
+    descriptionElement: document.querySelector('.description'),
+    resultsElement: document.querySelector('.results'),
+  }
+
+  if (!isGameElements(gameElements)) {
+    // uhh
     return;
   }
 
-  const delimeter = " ";
-  const generateToken = () => {
-    return {
-      content: wordlist[Math.floor(Math.random() * wordlist.length)],
-    }
-  }
-
-  const size = 8;
-  const generateTokens = () => {
-    const tokens = [];
-    let letters = 0;
-    while (letters < size * size) {
-      const token = generateToken();
-      if (letters + token.content.length + 1 > size * size) {
-        break;
-      }
-      letters += token.content.length + 1
-      tokens.push(token);
-    }
-    return tokens;
-  }
-
-  const config: GameConfig = {
-    id: 0,
-    // rows: size,
-    // cols: size,
-    // layout: "idk",
-    delimeter,
-    tokens: generateTokens(),
-  }
 
   const game = new Game(config);
-
-  // god this sucks
-  const _game = new _Game(gridElement, cursorElement, inputElement, introElement, gameContainerElement, resultsElement, config);
-
-  _game.initialize();
-})();
+  const gameGrid = new GameGrid(game, gameElements);
+});

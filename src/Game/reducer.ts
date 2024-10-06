@@ -1,12 +1,7 @@
 import { GameAction, GameActionType } from './actions';
 import { GameState, GameStatus } from './types';
 
-export function createGameState(config: GameConfig): GameState {
-  return {
-    config,
-    status: GameStatus.LOADING,
-  };
-}
+const UNDEFINED_CHAR = '';
 
 export function reduceGameState(state: GameState, action: GameAction): GameState {
   switch (action.type) {
@@ -20,18 +15,9 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         status: GameStatus.READY,
       };
 
-    case GameActionType.START_COUNTDOWN:
-      if (state.status !== GameStatus.READY) {
-        return state;
-      }
-
-      return {
-        ...state,
-        status: GameStatus.COUNTDOWN,
-      };
 
     case GameActionType.START_PLAYING:
-      if (state.status !== GameStatus.COUNTDOWN) {
+      if (state.status !== GameStatus.READY) {
         return state;
       }
 
@@ -39,6 +25,9 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         ...state,
         status: GameStatus.PLAYING,
         startTime: Date.now(),
+        tokenIndex: 0,
+        tokenContentIndex: 0,
+        lastInputIncorrect: false,
       };
 
     case GameActionType.PROCESS_INPUT:
@@ -46,8 +35,44 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         return state;
       }
 
-      // process input
-      return state;
+      const { content } = state.config.tokens[state.tokenIndex];
+      const { input } = action;
+
+      // pad input so that it is at least the lengthof token Content
+      const paddedInput = [...input]
+        .concat(Array.from({ length: content.length - input.length }, () => UNDEFINED_CHAR));
+
+      // find first index where input does not match token Content
+      const nextContentIndex = paddedInput
+        .map((char, index) => char === content[index])
+        .findIndex(correct => !correct);
+
+      console.log(paddedInput, content, nextContentIndex);
+
+      if (nextContentIndex === -1) {
+        // move to next token
+        const nextTokenIndex = state.tokenIndex + 1;
+
+        if (nextTokenIndex === state.config.tokens.length) {
+          return {
+            ...state,
+            status: GameStatus.RESULTS,
+          };
+        }
+
+        return {
+          ...state,
+          tokenIndex: nextTokenIndex,
+          tokenContentIndex: 0,
+          lastInputIncorrect: false,
+        };
+      }
+
+      return {
+        ...state,
+        tokenContentIndex: nextContentIndex,
+        lastInputIncorrect: paddedInput[nextContentIndex] !== UNDEFINED_CHAR
+      };
 
     case GameActionType.SHOW_RESULTS:
       if (state.status !== GameStatus.PLAYING) {

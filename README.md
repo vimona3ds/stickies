@@ -102,6 +102,7 @@ happy october!!!!
 - [ ] shouldnt be able to type in grid before game starts
 - [ ] timer should not suddenly show up
 - [ ] figure out better place for timer? or dont show it at all?
+- [ ] difficulty setting
 
 ### EVENTUALLY...
 - [ ] percentiles
