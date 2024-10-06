@@ -63,6 +63,18 @@ export class GameGrid {
     }
   }
 
+  async countDown(): Promise<void> {
+    const { gameElements: { descriptionElement } } = this;
+    const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    descriptionElement.textContent = "3";
+    await wait(1000);
+    descriptionElement.textContent = "2";
+    await wait(1000);
+    descriptionElement.textContent = "1";
+    await wait(1000);
+  }
+
   createEventListeners(): void {
     const { game, gameElements: { inputElement } } = this;
 
@@ -70,14 +82,13 @@ export class GameGrid {
       inputElement.focus();
     });
 
-    inputElement.addEventListener('focus', () => {
+    inputElement.addEventListener('focus', async () => {
       if (game.state.status !== GameStatus.READY) {
         return;
       }
 
-      // count
-      //down
-      //
+      await this.countDown();
+
       game.dispatch({ type: GameActionType.START_PLAYING });
       this.update();
     });
