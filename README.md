@@ -72,6 +72,9 @@ happy october!!!!
 - [x] begin game reducer (boilerplate)
 - [x] jest setup!!!
 
+### 10/06/24
+- [x] clean up reducer unit tests (better organized)
+
 ### eventually...
 - [ ] refactor
   - [ ] Game to use pure reducer logic + disjoint union type for state

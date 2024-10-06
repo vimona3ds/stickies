@@ -13,53 +13,61 @@ describe('reduceGameState', () => {
     });
   });
 
-  it('should not be able to set ready unless game is in loading state', () => {
+  it('should be able to set ready when game is in loading state', () => {
     initialState.status = GameStatus.LOADING;
     let action = createSetReadyAction();
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.READY);
+  });
 
+  it('should not be able to set ready when game is not in loading state', () => {
     initialState.status = GameStatus.PLAYING;
-    action = createSetReadyAction();
-    newState = reduceGameState(initialState, action);
+    let action = createSetReadyAction();
+    let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.PLAYING);
   });
 
-  it('should not be able to start countdown unless game is in ready state', () => {
+  it('should be able to start countdown when game is in ready state', () => {
     initialState.status = GameStatus.READY;
     let action = createStartCountdownAction();
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.COUNTDOWN);
+  });
 
+  it('should not be able to start countdown when game is not in ready state', () => {
     initialState.status = GameStatus.LOADING;
-    action = createStartCountdownAction();
-    newState = reduceGameState(initialState, action);
+    let action = createStartCountdownAction();
+    let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.LOADING);
   });
 
-  it('should not be able to start playing unless game is in countdown state', () => {
+  it('should be able to start playing when game is in countdown state', () => {
     initialState.status = GameStatus.COUNTDOWN;
     let action = createStartPlayingAction();
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.PLAYING);
+  });
 
+  it('should not be able to start playing when game is not in countdown state', () => {
     initialState.status = GameStatus.RESULTS;
-    action = createStartPlayingAction();
-    newState = reduceGameState(initialState, action);
+    let action = createStartPlayingAction();
+    let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.RESULTS);
   });
 
   // todo process input tests
 
-  it('should not show results unless game is in playing state', () => {
+  it('should be able to show results when game is in playing state', () => {
     initialState.status = GameStatus.PLAYING;
     let action = createShowResultsAction();
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.RESULTS);
+  });
 
+  it('should not be able to show results when game is not in playing state', () => {
     initialState.status = GameStatus.COUNTDOWN;
-    action = createShowResultsAction();
-    newState = reduceGameState(initialState, action);
+    let action = createShowResultsAction();
+    let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.COUNTDOWN);
   });
 });
