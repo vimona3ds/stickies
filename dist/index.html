@@ -3,18 +3,33 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
   <title>stickies</title>
-  <link rel="stylesheet" href="styles.css">
-<script defer src="runtime.bundle.js"></script><script defer src="main.bundle.js"></script></head>
+<script defer src="runtime.bundle.js"></script><script defer src="main.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
 
-<body>
-  <div id="sticky">
-    <div id="game">
-      <input type="text" id="game-input">
-      <div id="cursor"></div>
+<body class="game-loading">
+  <div class="header">
+    <span class="title">stickies!</span>
+    <span class="id">#0</span>
+  </div>
+  <div class="container">
+    <input type="text" class="input">
+    <div class="game">
+      <div class="grid">
+      </div>
+      <div class="description">
+        <p>tap or type to start</p>
+      </div>
+      <div class="results">
+        <span class="speed"></span>
+        <span class="mistakes"></span>
+        <button class="share">share results</button>
+      </div>
     </div>
   </div>
+
+  <div class="cursor"></div>
 </body>
 
 </html>
