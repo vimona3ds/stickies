@@ -71,9 +71,10 @@ happy october!!!!
 - [x] clean up types
 - [x] begin game reducer (boilerplate)
 - [x] jest setup!!!
+- [x] clean up reducer unit tests (better organized)
 
 ### 10/06/24
-- [x] clean up reducer unit tests (better organized)
+so much stuff that im jt gonna stop updating this lol
 
 ### eventually...
 - [ ] refactor
@@ -103,6 +104,7 @@ happy october!!!!
 - [ ] timer should not suddenly show up
 - [ ] figure out better place for timer? or dont show it at all?
 - [ ] difficulty setting
+- [ ] dom read/write optimization
 
 ### EVENTUALLY...
 - [ ] percentiles
