@@ -36,7 +36,7 @@ const config: GameConfig = {
   ]
 }
 
-window.addEventListener('load', (event) => {
+window.addEventListener('load', () => {
   const gameElements = {
     gridElement: document.querySelector('.grid'),
     cursorElement: document.querySelector('.cursor'),
@@ -46,11 +46,8 @@ window.addEventListener('load', (event) => {
   }
 
   if (!isGameElements(gameElements)) {
-    // uhh
     return;
   }
 
-
-  const game = new Game(config);
-  const gameGrid = new GameGrid(game, gameElements);
+  new GameGrid(new Game(config), gameElements);
 });

@@ -103,11 +103,6 @@ export class GameGrid {
     });
   }
 
-  updateBodyClassName(): void {
-    const { game: { state: { status } } } = this;
-
-  }
-
   updateInputElementValue(): void {
     const { game: { state }, gameElements: { inputElement } } = this;
 
@@ -130,10 +125,10 @@ export class GameGrid {
     const charElement = charElementMatrix[tokenIndex][tokenContentIndex];
 
     // update cursor position
-    const { top, left } = charElement.getBoundingClientRect();
+    const { top, left, width, height } = charElement.getBoundingClientRect();
 
-    cursorElement.style.top = `${top}px`;
-    cursorElement.style.left = `${left}px`;
+    cursorElement.style.top = `${top + height / 2}px`;
+    cursorElement.style.left = `${left + width / 2}px`;
   }
 
   updateGameElementsClassNames(): void {
@@ -157,6 +152,26 @@ export class GameGrid {
     const { config: { tokens } } = state;
     const { errorsShown } = tokens[tokenIndex];
 
+    for (let i = 0; i <= tokenIndex; i++) {
+      const { highlightedWhenCorrect } = tokens[i];
+
+      if (!highlightedWhenCorrect) {
+        continue;
+      }
+
+      if (i < tokenIndex) {
+        for (let j = 0; j < charElementMatrix[i].length; j++) {
+          charElementMatrix[i][j].classList.add("highlighted");
+          charElementMatrix[i][j].classList.remove("incorrect");
+        }
+      } else if (i === tokenIndex) {
+        for (let j = 0; j < tokenContentIndex; j++) {
+          charElementMatrix[i][j].classList.add("highlighted");
+          charElementMatrix[i][j].classList.remove("incorrect");
+        }
+      }
+    }
+
     if (errorsShown) {
       if (lastInputIncorrect) {
         charElement.classList.add("incorrect");
@@ -166,11 +181,9 @@ export class GameGrid {
         cursorElement.classList.remove("incorrect");
       }
     }
-
   }
 
   update(): void {
-    this.updateBodyClassName();
     this.updateInputElementValue();
     this.updateCursorPosition();
     this.updateGameElementsClassNames();
