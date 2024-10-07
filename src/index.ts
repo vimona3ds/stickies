@@ -43,6 +43,8 @@ window.addEventListener('load', () => {
     inputElement: document.querySelector('.input'),
     descriptionElement: document.querySelector('.description'),
     resultsElement: document.querySelector('.results'),
+    speedElement: document.querySelector('.speed'),
+    mistakesElement: document.querySelector('.mistakes'),
   }
 
   if (!isGameElements(gameElements)) {

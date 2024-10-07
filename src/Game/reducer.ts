@@ -3,6 +3,7 @@ import { GameState, GameStatus } from './types';
 
 const UNDEFINED_CHAR = '';
 
+
 export function reduceGameState(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case GameActionType.SET_READY:
@@ -28,6 +29,7 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         tokenIndex: 0,
         tokenContentIndex: 0,
         lastInputIncorrect: false,
+        mistakes: 0,
       };
 
     case GameActionType.PROCESS_INPUT:
@@ -55,6 +57,7 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
           return {
             ...state,
             status: GameStatus.RESULTS,
+            endTime: Date.now()
           };
         }
 
@@ -66,10 +69,13 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         };
       }
 
+      const mistakeWasMade = paddedInput[nextContentIndex] !== UNDEFINED_CHAR;
+
       return {
         ...state,
         tokenContentIndex: nextContentIndex,
-        lastInputIncorrect: paddedInput[nextContentIndex] !== UNDEFINED_CHAR
+        lastInputIncorrect: mistakeWasMade,
+        mistakes: state.mistakes + (mistakeWasMade ? 1 : 0),
       };
 
     case GameActionType.SHOW_RESULTS:
@@ -80,6 +86,7 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
       return {
         ...state,
         status: GameStatus.RESULTS,
+        endTime: Date.now(),
       };
 
     default:

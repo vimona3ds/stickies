@@ -21,10 +21,14 @@ export type GameState =
     tokenIndex: number;
     tokenContentIndex: number;
     lastInputIncorrect: boolean;
+    mistakes: number;
     startTime: number;
     config: GameConfig;
   }
   | {
     status: GameStatus.RESULTS;
+    mistakes: number;
+    startTime: number;
+    endTime: number;
     config: GameConfig;
   }

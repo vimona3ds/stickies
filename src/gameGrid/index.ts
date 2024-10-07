@@ -1,6 +1,7 @@
 import { Game } from "../game";
 import { GameActionType } from "../game/actions";
 import { GameStatus } from "../game/types";
+import { getGameResults } from "../utils/getGameResults";
 
 const gameStatusToClassNameMap: Record<GameStatus, string> = {
   [GameStatus.LOADING]: 'game-loading',
@@ -25,6 +26,7 @@ export class GameGrid {
   charElementMatrix: HTMLElement[][];
   countingDown: boolean;
   lastInputValue: string;
+  resultsInterval?: NodeJS.Timeout;
 
   constructor(game: Game, gameElements: GameElements) {
     this.game = game;
@@ -227,9 +229,32 @@ export class GameGrid {
     }
   }
 
+  updateResultsElement(): void {
+    const { game: { state }, gameElements: { speedElement, mistakesElement } } = this;
+    const updateResults = () => {
+      const { speed, mistakes } = getGameResults(this.game.state);
+
+      speedElement.textContent = speed;
+      mistakesElement.textContent = mistakes;
+    }
+
+    if (state.status === GameStatus.PLAYING && !this.resultsInterval) {
+      this.resultsInterval = setInterval(updateResults, 50);
+    }
+
+    if (state.status === GameStatus.RESULTS) {
+      if (this.resultsInterval) {
+        clearInterval(this.resultsInterval);
+      }
+
+      updateResults();
+    }
+  }
+
   update(): void {
     this.updateInputElement();
     this.updateCursorPosition();
     this.updateGameElementsClassNames();
+    this.updateResultsElement();
   }
 }

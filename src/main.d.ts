@@ -19,8 +19,8 @@ declare type GameToken = {
 }
 
 declare type GameResults = {
-  timeInSeconds: string;
-  accuracyPercentage: string;
+  speed: string;
+  mistakes: string;
 }
 
 declare type GameConfig = {
@@ -36,4 +36,6 @@ declare type GameElements = {
   inputElement: HTMLInputElement;
   descriptionElement: HTMLElement;
   resultsElement: HTMLElement;
+  speedElement: HTMLElement;
+  mistakesElement: HTMLElement;
 }
