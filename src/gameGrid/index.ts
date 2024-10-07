@@ -2,6 +2,7 @@ import { Game } from "../game";
 import { GameActionType } from "../game/actions";
 import { GameStatus } from "../game/types";
 import { getGameResults } from "../utils/getGameResults";
+import { getGameSummary } from "../utils/getGameSummary";
 
 const gameStatusToClassNameMap: Record<GameStatus, string> = {
   [GameStatus.LOADING]: 'game-loading',
@@ -92,7 +93,7 @@ export class GameGrid {
   }
 
   createEventListeners(): void {
-    const { game, gameElements: { inputElement } } = this;
+    const { game, gameElements: { inputElement, shareElement } } = this;
 
     window.addEventListener('keydown', () => {
       inputElement.focus();
@@ -132,6 +133,15 @@ export class GameGrid {
 
       this.update();
       this.lastInputValue = inputElement.value;
+    });
+
+    shareElement.addEventListener('click', () => {
+      navigator.clipboard.writeText(getGameSummary(game.state));
+      shareElement.textContent = "copied to clipboard";
+
+      setTimeout(() => {
+        shareElement.textContent = "share results";
+      }, 1500);
     });
   }
 

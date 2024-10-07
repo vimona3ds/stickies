@@ -1,6 +1,6 @@
 import { Game } from './game';
 import { createToken } from './utils/createToken';
-import { isGameElements } from './utils/isElementGroup';
+import { isGameElements } from './utils/isGameElements';
 import { GameGrid } from './gameGrid';
 import "./index.scss";
 
@@ -45,6 +45,7 @@ window.addEventListener('load', () => {
     resultsElement: document.querySelector('.results'),
     speedElement: document.querySelector('.speed'),
     mistakesElement: document.querySelector('.mistakes'),
+    shareElement: document.querySelector('.share'),
   }
 
   if (!isGameElements(gameElements)) {

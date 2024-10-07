@@ -10,6 +10,6 @@ export function getGameResults(state: GameState): GameResults {
 
   return {
     speed: `${speed.toFixed(2)}s`,
-    mistakes: `${mistakes}`
+    mistakes: `${mistakes} errors`
   };
 }

@@ -38,4 +38,5 @@ declare type GameElements = {
   resultsElement: HTMLElement;
   speedElement: HTMLElement;
   mistakesElement: HTMLElement;
+  shareElement: HTMLElement;
 }
