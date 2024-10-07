@@ -105,6 +105,8 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] figure out better place for timer? or dont show it at all?
 - [ ] difficulty setting
 - [ ] dom read/write optimization
+- [ ] fix last letter error still showing after results screen
+- [ ] fix cursor not updating when resize / transition of screen
 
 ### EVENTUALLY...
 - [ ] percentiles
@@ -112,3 +114,4 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] i18n
 - [ ] accessibility
 - [ ] perf optimization
+- [ ] embed game preview when sharing?

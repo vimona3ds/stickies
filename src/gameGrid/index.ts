@@ -1,6 +1,7 @@
 import { Game } from "../game";
 import { GameActionType } from "../game/actions";
 import { GameStatus } from "../game/types";
+import { copyToClipboard } from "../utils/copyToClipboard";
 import { getGameResults } from "../utils/getGameResults";
 import { getGameSummary } from "../utils/getGameSummary";
 
@@ -136,7 +137,8 @@ export class GameGrid {
     });
 
     shareElement.addEventListener('click', () => {
-      navigator.clipboard.writeText(getGameSummary(game.state));
+      copyToClipboard(getGameSummary(game.state));
+
       shareElement.textContent = "copied to clipboard";
 
       setTimeout(() => {

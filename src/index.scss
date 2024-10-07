@@ -1,3 +1,4 @@
+html,
 :root {
   touch-action: none;
   height: 100%;
@@ -150,7 +151,7 @@ body {
   cursor: pointer;
 
   &:hover {
-    border: 1px solid #fff;
+    border: 1px solid #aaa;
     color: #aaa;
   }
 
