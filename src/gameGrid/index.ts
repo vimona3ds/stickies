@@ -24,6 +24,7 @@ export class GameGrid {
   tokenElements: HTMLElement[];
   charElementMatrix: HTMLElement[][];
   countingDown: boolean;
+  lastInputValue: string;
 
   constructor(game: Game, gameElements: GameElements) {
     this.game = game;
@@ -31,6 +32,7 @@ export class GameGrid {
     this.tokenElements = [];
     this.charElementMatrix = [];
     this.countingDown = false;
+    this.lastInputValue = "";
 
     const { state: { config: { rows, cols } } } = game;
 
@@ -103,9 +105,7 @@ export class GameGrid {
 
       await this.countDown();
 
-      console.log(1, game);
       game.dispatch({ type: GameActionType.START_PLAYING });
-      console.log(2, game);
 
       inputElement.focus();
 
@@ -121,9 +121,15 @@ export class GameGrid {
         return;
       }
 
+      if (inputElement.value.length < this.lastInputValue.length) {
+        inputElement.value = this.lastInputValue;
+      }
+
+
       game.dispatch({ type: GameActionType.PROCESS_INPUT, input: inputElement.value });
 
       this.update();
+      this.lastInputValue = inputElement.value;
     });
   }
 
