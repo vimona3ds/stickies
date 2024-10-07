@@ -26,9 +26,6 @@ body {
   transition: all 0.2s ease;
 }
 
-/* body.keyboard-open #header {
-  opacity: 0;
-} */
 
 .cursor {
   position: absolute;
@@ -54,10 +51,6 @@ body {
   transition: all 0.2s ease;
   will-change: 'transform';
 }
-
-/* body.keyboard-open #game-container {
-  transform: translate(-50%, -50svh);
-} */
 
 .game {
   position: relative;
@@ -142,25 +135,19 @@ body {
   z-index: 100;
 }
 
-/* todo convert all these fucking ids to classes so i dont have to do this */
-/* .hidden,
-#cursor.hidden,
-#game-results.hidden {
-  opacity: 0;
-}
-
-/* .extra {
-  color: #b00;
-} */
-
 /* would be cool if the grid was random or animated or something while blurred */
-/* #game-grid.blurred {
-  filter: blur(2vmin);
-} */
 
-body.game-loading {}
+@media (max-width: 600px) {
+  body.keyboard-open {
+    .header {
+      opacity: 0;
+    }
 
-body.game-ready {}
+    .container {
+      transform: translate(-50%, -50svh);
+    }
+  }
+}
 
 body.game-playing {
   .description {

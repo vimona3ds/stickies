@@ -1,7 +1,13 @@
 import { Game } from "../game";
 import { GameActionType } from "../game/actions";
 import { GameStatus } from "../game/types";
-import { getClassNameFromGameStatus } from "../utils/getClassNameFromGameStatus";
+
+const gameStatusToClassNameMap: Record<GameStatus, string> = {
+  [GameStatus.LOADING]: 'game-loading',
+  [GameStatus.READY]: 'game-ready',
+  [GameStatus.PLAYING]: 'game-playing',
+  [GameStatus.RESULTS]: 'game-results',
+};
 
 function handleCharElementPerTokenLayout(charElement: HTMLElement, i: number, layout: GameTokenLayout): void {
   switch (layout.type) {
@@ -17,12 +23,14 @@ export class GameGrid {
   gameElements: GameElements;
   tokenElements: HTMLElement[];
   charElementMatrix: HTMLElement[][];
+  countingDown: boolean;
 
   constructor(game: Game, gameElements: GameElements) {
     this.game = game;
     this.gameElements = gameElements;
     this.tokenElements = [];
     this.charElementMatrix = [];
+    this.countingDown = false;
 
     const { state: { config: { rows, cols } } } = game;
 
@@ -64,6 +72,8 @@ export class GameGrid {
   }
 
   async countDown(): Promise<void> {
+    this.countingDown = true;
+
     const { gameElements: { descriptionElement } } = this;
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -73,6 +83,8 @@ export class GameGrid {
     await wait(1000);
     descriptionElement.textContent = "1";
     await wait(1000);
+
+    this.countingDown = false;
   }
 
   createEventListeners(): void {
@@ -83,13 +95,24 @@ export class GameGrid {
     });
 
     inputElement.addEventListener('focus', async () => {
-      if (game.state.status !== GameStatus.READY) {
+      this.updateBodyClassNames();
+
+      if (game.state.status !== GameStatus.READY || this.countingDown) {
         return;
       }
 
       await this.countDown();
 
+      console.log(1, game);
       game.dispatch({ type: GameActionType.START_PLAYING });
+      console.log(2, game);
+
+      inputElement.focus();
+
+      this.update();
+    });
+
+    inputElement.addEventListener('blur', () => {
       this.update();
     });
 
@@ -99,19 +122,20 @@ export class GameGrid {
       }
 
       game.dispatch({ type: GameActionType.PROCESS_INPUT, input: inputElement.value });
+
       this.update();
     });
   }
 
-  updateInputElementValue(): void {
+  updateInputElement(): void {
     const { game: { state }, gameElements: { inputElement } } = this;
 
-    if (state.status !== GameStatus.PLAYING) {
-      return;
+    if (state.status === GameStatus.PLAYING) {
+      // trim errors
+      inputElement.value = inputElement.value.slice(0, state.tokenContentIndex);
+    } else if (state.status === GameStatus.RESULTS) {
+      inputElement.setAttribute("disabled", "");
     }
-
-    // trim errors
-    inputElement.value = inputElement.value.slice(0, state.tokenContentIndex);
   }
 
   updateCursorPosition(): void {
@@ -131,16 +155,30 @@ export class GameGrid {
     cursorElement.style.left = `${left + width / 2}px`;
   }
 
-  updateGameElementsClassNames(): void {
-    const { game: { state }, gameElements: { cursorElement }, charElementMatrix } = this;
+  updateBodyClassNames(): void {
+    const { game: { state }, gameElements: { inputElement } } = this;
 
-    document.body.classList.remove(document.body.classList[0]);
+    for (const className of Object.values(gameStatusToClassNameMap)) {
+      document.body.classList.remove(className);
+    }
 
-    const newClassName = getClassNameFromGameStatus(state.status);
+    const newClassName = gameStatusToClassNameMap[state.status];
 
     if (newClassName) {
       document.body.classList.add(newClassName);
     }
+
+    if (document.activeElement === inputElement) {
+      document.body.classList.add("keyboard-open");
+    } else {
+      document.body.classList.remove("keyboard-open");
+    }
+  }
+
+  updateGameElementsClassNames(): void {
+    this.updateBodyClassNames();
+
+    const { game: { state }, gameElements: { cursorElement }, charElementMatrix } = this;
 
     if (state.status !== GameStatus.PLAYING) {
       return;
@@ -184,7 +222,7 @@ export class GameGrid {
   }
 
   update(): void {
-    this.updateInputElementValue();
+    this.updateInputElement();
     this.updateCursorPosition();
     this.updateGameElementsClassNames();
   }

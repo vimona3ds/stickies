@@ -47,8 +47,6 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         .map((char, index) => char === content[index])
         .findIndex(correct => !correct);
 
-      console.log(paddedInput, content, nextContentIndex);
-
       if (nextContentIndex === -1) {
         // move to next token
         const nextTokenIndex = state.tokenIndex + 1;
