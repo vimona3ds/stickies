@@ -4,6 +4,7 @@ import { GameGrid } from './gameGrid';
 import "./index.scss";
 import { createRandomGameConfig } from './utils/createRandomGameConfig';
 import { overrides } from './config';
+import { loadAllSounds } from './audio';
 
 window.addEventListener('load', () => {
   const gameElements = {
@@ -23,6 +24,8 @@ window.addEventListener('load', () => {
 
   const id = 1 // getGameId();
   const config = id in overrides ? overrides[id] : createRandomGameConfig();
+
+  loadAllSounds();
 
   new GameGrid(new Game(config), gameElements);
 });

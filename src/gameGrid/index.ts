@@ -1,3 +1,4 @@
+import { sounds } from "../audio";
 import { Game } from "../game";
 import { GameActionType } from "../game/actions";
 import { GameGridLayout } from "../gameGridLayout";
@@ -14,6 +15,7 @@ const gameStatusToClassNameMap: Record<GameStatus, string> = {
   [GameStatus.RESULTS]: 'game-results',
 };
 
+// should rly be gameDOM or something
 export class GameGrid {
   game: Game;
   layout: GameGridLayout;
@@ -86,10 +88,13 @@ export class GameGrid {
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
     descriptionElement.textContent = "3";
+    sounds.countdown.play();
     await wait(1000);
     descriptionElement.textContent = "2";
+    sounds.countdown.play();
     await wait(1000);
     descriptionElement.textContent = "1";
+    sounds.countdown.play();
     await wait(1000);
 
     this.countingDown = false;
@@ -112,7 +117,8 @@ export class GameGrid {
       await this.countDown();
 
       game.dispatch({ type: GameActionType.START_PLAYING });
-
+      sounds.start.play();
+      sounds.playing.play();
       inputElement.focus();
 
       this.update();
@@ -131,8 +137,12 @@ export class GameGrid {
         inputElement.value = this.lastInputValue;
       }
 
-
+      sounds.click.play();
       game.dispatch({ type: GameActionType.PROCESS_INPUT, input: inputElement.value });
+
+      if (game.state.lastInputIncorrect) {
+        sounds.incorrect.play();
+      }
 
       this.update();
       this.lastInputValue = inputElement.value;
@@ -257,6 +267,9 @@ export class GameGrid {
     }
 
     if (state.status === GameStatus.RESULTS) {
+      sounds.complete.play();
+      sounds.playing.stop();
+
       if (this.resultsInterval) {
         clearInterval(this.resultsInterval);
       }
