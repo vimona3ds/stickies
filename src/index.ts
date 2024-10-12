@@ -18,17 +18,21 @@ window.addEventListener('load', () => {
     shareButtonElement: document.querySelector('.share-button'),
     gameElement: document.querySelector('.game'),
     instructionsButtonElement: document.querySelector('.instructions-button'),
-    hideInstructionsButtonElement: document.querySelector('.hide-instructions-button')
+    hideInstructionsButtonElement: document.querySelector('.hide-instructions-button'),
+    idElement: document.querySelector('.id')
   }
 
   if (!isGameElements(gameElements)) {
     return;
   }
 
+
   const id = 1 // getGameId();
   const config = id in overrides ? overrides[id] : createRandomGameConfig();
 
   loadAllSounds();
+
+  gameElements.idElement.innerHTML = `#${id}`;
 
   new GameGrid(new Game(config), gameElements);
 });

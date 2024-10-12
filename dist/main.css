@@ -103,6 +103,7 @@ body {
 }
 
 .instructions {
+  max-width: 40rem;
   padding: 1rem;
   color: rgba(255, 255, 255, 0.75);
   transform: translateX(-100%);
@@ -145,9 +146,9 @@ body {
 .button {
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.75);
+  font-size: 1.25rem;
+  padding: 0.9375rem;
   color: rgba(255, 255, 255, 0.75);
-  font-size: 4vmin;
-  padding: 3vmin;
   font-family: "Courier New", Courier, monospace;
   transition: all 0.2s cubic-bezier(0, 1, 1, 1);
   cursor: pointer;
@@ -161,7 +162,12 @@ body {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.share {
+.game-button {
+  font-size: 4vmin;
+  padding: 3vmin;
+}
+
+.share-button {
   opacity: 0;
   margin: 3vmin;
   bottom: 2vmin;
@@ -180,8 +186,8 @@ body {
   transform: translateX(100vw);
 }
 
-.hide-instructions {
-  margin-top: 2rem;
+.hide-instructions-button {
+  margin-top: 1.25rem;
 }
 
 /* would be cool if the grid was random or animated or something while blurred */
@@ -217,7 +223,7 @@ body.game-results .results {
   opacity: 1;
   filter: blur(0vmin);
 }
-body.game-results .share {
+body.game-results .share-button {
   opacity: 1;
 }
 body.game-results .input {

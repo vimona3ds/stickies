@@ -1,7 +1,7 @@
 {
   "name": "stickies",
-  "version": "1.0.0",
-  "description": "bruh",
+  "version": "0.1.0",
+  "description": "fun typing puzzle game",
   "main": "index.js",
   "scripts": {
     "test": "jest",

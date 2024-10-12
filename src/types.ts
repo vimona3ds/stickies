@@ -27,6 +27,7 @@ export type GameElements = {
   gameElement: HTMLElement;
   instructionsButtonElement: HTMLElement;
   hideInstructionsButtonElement: HTMLElement;
+  idElement: HTMLElement;
 }
 
 export enum GameStatus {
