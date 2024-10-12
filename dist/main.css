@@ -14,20 +14,20 @@ body {
   width: 100%;
   height: 100%;
   font-family: "Courier New", Courier, monospace;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   background-color: #222;
   overflow: hidden;
 }
 
 .header {
   text-align: center;
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.5);
   padding: 1rem;
   height: 2rem;
   display: flex;
   justify-content: space-between;
   opacity: 1;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0, 1, 1, 1);
 }
 
 .cursor {
@@ -50,24 +50,15 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: all 0.2s ease;
-  will-change: "transform";
-}
-
-.game {
-  position: relative;
-  aspect-ratio: 1;
-  border: 1px solid #aaa;
-  margin: 1rem;
-  font-size: 12vmin;
+  transition: all 0.2s cubic-bezier(0, 1, 1, 1);
 }
 
 .grid {
   display: grid;
   width: 100%;
   height: 100%;
-  filter: blur(2vmin);
-  transition: all 0.2s ease;
+  filter: blur(3vmin);
+  transition: all 0.2s cubic-bezier(0, 1, 1, 1), opacity 0.4s ease;
 }
 
 .description,
@@ -79,9 +70,44 @@ body {
   text-align: center;
   align-items: center;
   inset: 0;
-  color: #777;
+  color: rgba(255, 255, 255, 0.75);
+  transition: all 0.4s cubic-bezier(0, 1, 1, 1);
+  transform: translateX(0%);
+  font-size: max(1.25rem, 4vmin);
+  padding: 1rem;
+}
+
+.game {
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  margin: 1rem;
+  transition: font-size 0.4s cubic-bezier(0, 1, 1, 1);
+  font-size: 12vmin;
+}
+.game.shake {
+  animation: 0.4s ease 0s 1 incorrect;
+}
+.game.counting-down-3 .description {
+  font-size: 12vmin;
+  font-weight: 900;
+}
+.game.counting-down-2 .description {
+  font-size: 16vmin;
+  font-weight: 900;
+}
+.game.counting-down-1 .description {
+  font-size: 20vmin;
+  font-weight: 900;
+}
+
+.instructions {
+  padding: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  transform: translateX(-100%);
+  opacity: 0;
   transition: all 0.2s ease;
-  font-size: 2rem;
 }
 
 .results {
@@ -89,7 +115,7 @@ body {
   font-weight: 900;
   opacity: 0;
   filter: blur(1vmin);
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0, 1, 1, 1);
 }
 
 .token {
@@ -99,32 +125,15 @@ body {
 .char {
   display: grid;
   place-content: center;
-  color: #777;
+  color: rgba(255, 255, 255, 0.5);
 }
 .char.incorrect {
   color: #f00;
 }
 .char.highlighted {
-  color: #ddd;
+  color: rgb(255, 255, 255);
 }
 
-/* body.complete #game-results {
-  opacity: 1;
-  filter: blur(0);
-} */
-/* .word {
-  display: flex;
-  flex-wrap: wrap;
-} */
-/* .letter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  color: #777;
-} */
 .input {
   position: absolute;
   min-width: 0;
@@ -133,26 +142,46 @@ body {
   z-index: 100;
 }
 
-.share {
-  margin: 3vmin;
+.button {
   background-color: transparent;
-  border: 1px solid #aaa;
-  color: #777;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
   font-size: 4vmin;
   padding: 3vmin;
   font-family: "Courier New", Courier, monospace;
-  opacity: 0;
-  position: absolute;
-  bottom: 2vmin;
+  transition: all 0.2s cubic-bezier(0, 1, 1, 1);
   cursor: pointer;
 }
-.share:hover {
-  border: 1px solid #aaa;
-  color: #aaa;
+.button:hover {
+  border: 1px solid rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
-.share:active {
-  border: 1px solid #aaa;
-  color: #777;
+.button:active {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.share {
+  opacity: 0;
+  margin: 3vmin;
+  bottom: 2vmin;
+  position: absolute;
+}
+
+.instructions-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222;
+  z-index: 1000;
+  transition: transform 0.75s cubic-bezier(0.41, -0.12, 0.77, -0.07);
+}
+.instructions-button.hidden {
+  transform: translateX(100vw);
+}
+
+.hide-instructions {
+  margin-top: 2rem;
 }
 
 /* would be cool if the grid was random or animated or something while blurred */
@@ -164,6 +193,10 @@ body {
     transform: translate(-50%, -50svh);
   }
 }
+body.game-loading .grid {
+  opacity: 0;
+}
+
 body.game-playing .description {
   opacity: 0;
 }
@@ -174,7 +207,7 @@ body.game-playing .grid {
   filter: blur(0vmin);
 }
 body.game-playing .results {
-  opacity: 0.2;
+  opacity: 0.1;
 }
 
 body.game-results .description {
@@ -182,11 +215,43 @@ body.game-results .description {
 }
 body.game-results .results {
   opacity: 1;
-  filter: blur(0);
+  filter: blur(0vmin);
 }
 body.game-results .share {
   opacity: 1;
 }
 body.game-results .input {
   z-index: -100;
+}
+
+body.showing-instructions .container {
+  filter: blur(4vmin);
+}
+body.showing-instructions .instructions {
+  opacity: 1;
+  transform: translateX(0%);
+}
+body.showing-instructions .cursor {
+  opacity: 0;
+}
+
+@keyframes incorrect {
+  0% {
+    transform: translateX(0%);
+  }
+  20% {
+    transform: translateX(-1%);
+  }
+  40% {
+    transform: translateX(1%);
+  }
+  60% {
+    transform: translateX(-1%);
+  }
+  80% {
+    transform: translateX(1%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
