@@ -16,6 +16,7 @@ window.addEventListener('load', () => {
     speedElement: document.querySelector('.speed'),
     mistakesElement: document.querySelector('.mistakes'),
     shareElement: document.querySelector('.share'),
+    gameElement: document.querySelector('.game')
   }
 
   if (!isGameElements(gameElements)) {

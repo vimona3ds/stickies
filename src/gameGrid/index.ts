@@ -210,7 +210,7 @@ export class GameGrid {
   updateGameElementsClassNames(): void {
     this.updateBodyClassNames();
 
-    const { game: { state }, gameElements: { cursorElement }, charElementMatrix } = this;
+    const { game: { state }, gameElements: { cursorElement, gameElement }, charElementMatrix } = this;
 
     if (state.status !== GameStatus.PLAYING) {
       return;
@@ -246,9 +246,11 @@ export class GameGrid {
       if (lastInputIncorrect) {
         charElement.classList.add("incorrect");
         cursorElement.classList.add("incorrect");
+        gameElement.classList.add("shake");
       } else {
         charElement.classList.remove("incorrect");
         cursorElement.classList.remove("incorrect");
+        gameElement.classList.remove("shake");
       }
     }
   }

@@ -24,6 +24,7 @@ export type GameElements = {
   speedElement: HTMLElement;
   mistakesElement: HTMLElement;
   shareElement: HTMLElement;
+  gameElement: HTMLElement;
 }
 
 export enum GameStatus {
