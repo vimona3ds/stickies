@@ -17,6 +17,10 @@ const gameStatusToClassNameMap: Record<GameStatus, string> = {
 
 // should rly be gameDOM or something
 export class GameGrid {
+  // this should be cleaned up, it's a disaster
+  // same issue i encountered with the game originally that the
+  // reducer was meant to fix
+
   game: Game;
   layout: GameGridLayout;
   gameElements: GameElements;
@@ -90,18 +94,24 @@ export class GameGrid {
     const { gameElements: { descriptionElement, gameElement } } = this;
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    gameElement.classList.add("counting-down");
-
+    gameElement.classList.add("counting-down-3");
     descriptionElement.textContent = "3";
     sounds.countdown.play();
     await wait(1000);
+
+    gameElement.classList.remove("counting-down-3");
+    gameElement.classList.add("counting-down-2");
     descriptionElement.textContent = "2";
     sounds.countdown.play();
     await wait(1000);
+
+    gameElement.classList.remove("counting-down-1");
+    gameElement.classList.add("counting-down-1");
     descriptionElement.textContent = "1";
     sounds.countdown.play();
     await wait(1000);
 
+    descriptionElement.textContent = "";
     this.countingDown = false;
   }
 
@@ -171,11 +181,13 @@ export class GameGrid {
     });
 
     instructionsButtonElement.addEventListener('click', () => {
+      sounds.click.play();
       this.showingInstructions = true;
       document.body.classList.add("showing-instructions");
     })
 
     hideInstructionsButtonElement.addEventListener('click', () => {
+      sounds.click.play();
       this.showingInstructions = false;
       document.body.classList.remove("showing-instructions");
     })
