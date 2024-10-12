@@ -1,38 +1,9 @@
 import { Game } from './game';
-import { createToken } from './utils/createToken';
 import { isGameElements } from './utils/isGameElements';
 import { GameGrid } from './gameGrid';
 import "./index.scss";
-import { GameConfig, GameTokenLayoutFillType, GameTokenLayoutType } from './types';
-
-const sentences = [
-  "quick brown fox",
-  "the eiffel tower",
-  "hello world",
-  "not my cup of tea",
-  "raining cats and dogs",
-  "a piece of cake",
-  "a dime a dozen",
-  "back to the drawing board",
-  "barking up the wrong tree",
-]
-
-const randomElementFrom = (array: string[]) => array[Math.floor(Math.random() * array.length)];
-
-const config: GameConfig = {
-  id: 0,
-  rows: 5,
-  cols: 5,
-  tokens: [
-    createToken({
-      content: "helloworld!!!",
-      layout: {
-        type: GameTokenLayoutType.NONE,
-        fillType: GameTokenLayoutFillType.LEFT_DOWN
-      },
-    }),
-  ]
-}
+import { createRandomGameConfig } from './utils/createRandomGameConfig';
+import { overrides } from './config';
 
 window.addEventListener('load', () => {
   const gameElements = {
@@ -49,6 +20,9 @@ window.addEventListener('load', () => {
   if (!isGameElements(gameElements)) {
     return;
   }
+
+  const id = 1 // getGameId();
+  const config = id in overrides ? overrides[id] : createRandomGameConfig();
 
   new GameGrid(new Game(config), gameElements);
 });

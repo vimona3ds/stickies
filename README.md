@@ -85,7 +85,7 @@ so much stuff that im jt gonna stop updating this lol
   - [ ] integrate localstorage
   - [ ] design history board
   - [ ] implement history board
-- [ ] share button
+- [x] share button
 - [ ] improve sounds
 - [ ] improve animations
 - [ ] improve styles/branding
@@ -112,6 +112,9 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] get initial position from next fill
 - [ ] convert all of game layout funcinto generators? maybe?
 - [ ] fix moving cursor around input and typing
+- [ ] clean up files / folder structure (more complicated than necessary)
+- [ ] pass list of layout types in token in order of preference...
+- [ ] overlapping letters
 
 ### EVENTUALLY...
 - [ ] percentiles
