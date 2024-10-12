@@ -1,9 +1,11 @@
 import { Game } from "../game";
 import { GameActionType } from "../game/actions";
-import { GameStatus } from "../game/types";
+import { GameGridLayout } from "../gameGridLayout";
+import { Coordinates, GameElements, GameStatus } from "../types";
 import { copyToClipboard } from "../utils/copyToClipboard";
 import { getGameResults } from "../utils/getGameResults";
 import { getGameSummary } from "../utils/getGameSummary";
+import { getTextContentFromChar } from "../utils/getTextContentFromChar";
 
 const gameStatusToClassNameMap: Record<GameStatus, string> = {
   [GameStatus.LOADING]: 'game-loading',
@@ -12,17 +14,9 @@ const gameStatusToClassNameMap: Record<GameStatus, string> = {
   [GameStatus.RESULTS]: 'game-results',
 };
 
-function handleCharElementPerTokenLayout(charElement: HTMLElement, i: number, layout: GameTokenLayout): void {
-  switch (layout.type) {
-    case "direction":
-      const { initialPosition: { x, y }, direction: { x: dx, y: dy } } = layout;
-      charElement.style.gridArea = `${1 + y + dy * i} / ${1 + x + dx * i} / span 1 / span 1`;
-      return;
-  }
-}
-
 export class GameGrid {
   game: Game;
+  layout: GameGridLayout;
   gameElements: GameElements;
   tokenElements: HTMLElement[];
   charElementMatrix: HTMLElement[][];
@@ -32,6 +26,7 @@ export class GameGrid {
 
   constructor(game: Game, gameElements: GameElements) {
     this.game = game;
+    this.layout = new GameGridLayout(game);
     this.gameElements = gameElements;
     this.tokenElements = [];
     this.charElementMatrix = [];
@@ -49,12 +44,16 @@ export class GameGrid {
     game.dispatch({ type: GameActionType.SET_READY });
   }
 
+  placeCellAtCoordinates(charElement: HTMLElement, { x, y }: Coordinates): void {
+    charElement.style.gridArea = `${y + 1} / ${x + 1} / span 1 / span 1`;
+  }
+
   createTokenAndCharElements(): void {
     const { game: { state: { config: { tokens } } }, gameElements: { gridElement } } = this;
 
     for (const token of tokens) {
       const { layout, content } = token;
-      const matrixRow = [];
+      const matrixRow: HTMLElement[] = [];
 
       const tokenElement = document.createElement('div');
       tokenElement.classList.add('token');
@@ -63,13 +62,16 @@ export class GameGrid {
         const char = content[i];
         const charElement = document.createElement('span');
         charElement.classList.add("char")
-        charElement.textContent = char;
+        charElement.textContent = getTextContentFromChar(char);
         tokenElement.appendChild(charElement);
-
-        handleCharElementPerTokenLayout(charElement, i, layout);
 
         matrixRow.push(charElement);
       }
+
+      this.layout.placeTokenCellsByLayoutType(token, (cellIndex, coordinates) => {
+        const charElement = matrixRow[cellIndex];
+        this.placeCellAtCoordinates(charElement, coordinates);
+      });
 
       gridElement.appendChild(tokenElement);
       this.tokenElements.push(tokenElement);

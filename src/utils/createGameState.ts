@@ -1,4 +1,4 @@
-import { GameState, GameStatus } from "../game/types";
+import { GameConfig, GameState, GameStatus } from "../types";
 
 export function createGameState(config: GameConfig): GameState {
   return {

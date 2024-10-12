@@ -1,8 +1,8 @@
+import { GameState, GameStatus } from '../types';
 import { createGameState } from '../utils/createGameState';
 import { createToken } from '../utils/createToken';
 import { GameAction, GameActionType } from './actions';
 import { reduceGameState } from './reducer';
-import { GameStatus, GameState } from './types';
 
 describe('reduceGameState', () => {
   let initialState: GameState;

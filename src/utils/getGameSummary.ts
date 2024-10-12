@@ -1,4 +1,4 @@
-import { GameState } from "../game/types";
+import { GameState } from "../types";
 import { getGameResults } from "./getGameResults";
 
 export function getGameSummary(state: GameState): string {

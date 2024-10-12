@@ -3,6 +3,7 @@ import { createToken } from './utils/createToken';
 import { isGameElements } from './utils/isGameElements';
 import { GameGrid } from './gameGrid';
 import "./index.scss";
+import { GameConfig, GameTokenLayoutFillType, GameTokenLayoutType } from './types';
 
 const threeLetterWords = ["bat", "cat", "sat", "fat", "ate", "eat", "but", "act", "set", "run", "far", "car", "rat", "set"];
 const twoLetterWords = ["at", "be", "do", "go", "he", "in", "it", "me", "my", "no", "of", "on", "or", "so", "to", "up", "us", "we"];
@@ -11,31 +12,28 @@ const randomElementFrom = (array: string[]) => array[Math.floor(Math.random() * 
 
 const config: GameConfig = {
   id: 0,
-  rows: 3,
-  cols: 3,
+  rows: 5,
+  cols: 8,
   tokens: [
     createToken({
-      content: randomElementFrom(twoLetterWords),
+      content: "helloworld",
       layout: {
-        type: "direction",
-        initialPosition: { x: 0, y: 1 },
-        direction: { x: 1, y: 1 },
+        type: GameTokenLayoutType.NONE,
+        fillType: GameTokenLayoutFillType.SPIRAL_CLOCKWISE_INWARDS,
       },
     }),
     createToken({
-      content: randomElementFrom(threeLetterWords),
+      content: "IAMYOURGOD...",
       layout: {
-        type: "direction",
-        initialPosition: { x: 2, y: 2 },
-        direction: { x: -1, y: -1 },
+        type: GameTokenLayoutType.NONE,
+        fillType: GameTokenLayoutFillType.LEFT_UP,
       },
     }),
     createToken({
-      content: randomElementFrom(twoLetterWords),
+      content: "ENOUGH",
       layout: {
-        type: "direction",
-        initialPosition: { x: 1, y: 0 },
-        direction: { x: 1, y: 1 },
+        type: GameTokenLayoutType.NONE,
+        fillType: GameTokenLayoutFillType.RANDOM,
       },
     }),
   ]

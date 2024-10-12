@@ -1,4 +1,4 @@
-import { GameState, GameStatus } from "../game/types";
+import { GameResults, GameState, GameStatus } from "../types";
 
 export function getGameResults(state: GameState): GameResults {
   const { status } = state;

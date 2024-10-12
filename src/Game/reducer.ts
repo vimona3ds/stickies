@@ -1,5 +1,5 @@
+import { GameState, GameStatus } from '../types';
 import { GameAction, GameActionType } from './actions';
-import { GameState, GameStatus } from './types';
 
 const UNDEFINED_CHAR = '';
 
