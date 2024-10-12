@@ -77,31 +77,31 @@ happy october!!!!
 so much stuff that im jt gonna stop updating this lol
 
 ### eventually...
-- [ ] refactor
-  - [ ] Game to use pure reducer logic + disjoint union type for state
-  - [ ] split Game into diff classes or functions and generally simplify. we are passing a lot of shit around that doesnt need to be passed around. Game concerns itself with things that it shouldnt. decide on boundaries and enforce
-- [ ] mobile support!!!
+- [x] refactor
+  - [x] Game to use pure reducer logic + disjoint union type for state
+  - [x] split Game into diff classes or functions and generally simplify. we are passing a lot of shit around that doesnt need to be passed around. Game concerns itself with things that it shouldnt. decide on boundaries and enforce
+- [x] mobile support!!!
 - [ ] history feature
   - [ ] integrate localstorage
   - [ ] design history board
   - [ ] implement history board
 - [x] share button
-- [ ] improve sounds
-- [ ] improve animations
+- [x] improve sounds
+- [x] improve animations
 - [ ] improve styles/branding
 - [ ] theme system?
 - [ ] dev
   - [ ] linter
   - [ ] enable source maps in ts/webpack config
   - [ ] prod vs dev webpack config
-- [ ] config
-  - [ ] custom layout system!!!!!
-  - [ ] use layout field
+- [x] config
+  - [x] custom layout system!!!!!
+  - [x] use layout field
   - [x] add other bidirectional layout types
 - [x] clean up styles -- just put game state as class on body instead of all these one off class names?
 - [ ] press esc to unfocus input
-- [ ] figure out where to show timer / acc
-- [ ] shouldnt be able to type in grid before game starts
+- [x] figure out where to show timer / acc
+- [x] shouldnt be able to type in grid before game starts
 - [ ] timer should not suddenly show up
 - [ ] figure out better place for timer? or dont show it at all?
 - [ ] difficulty setting
