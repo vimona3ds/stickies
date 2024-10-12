@@ -1,12 +1,27 @@
+@use "sass:map";
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-$dark-serif-theme-white-25: rgba(255, 255, 255, 0.25);
-$dark-serif-theme-white-50: rgba(255, 255, 255, 0.50);
-$dark-serif-theme-white-75: rgba(255, 255, 255, 0.75);
-$dark-serif-theme-white-100: rgba(255, 255, 255, 1);
-$dark-serif-theme-fast-transition: cubic-bezier(0, 1, 1, 1);
-$dark-serif-theme-regular-transition: ease;
-$dark-serif-theme-dark: #222;
+$dark-serif-theme: (
+  "primary-25": rgba(255, 255, 255, 0.25),
+  "primary-50": rgba(255, 255, 255, 0.50),
+  "primary-75": rgba(255, 255, 255, 0.75),
+  "primary-100": rgba(255, 255, 255, 1),
+  "fast-transition": cubic-bezier(0, 1, 1, 1),
+  "regular-transition": ease,
+  "background": #222
+);
+
+$fun-theme: (
+  "primary-25": rgba(255, 55, 255, 0.25),
+  "primary-50": rgba(255, 55, 255, 0.50),
+  "primary-75": rgba(255, 55, 255, 0.75),
+  "primary-100": rgba(255, 55, 255, 1),
+  "fast-transition": cubic-bezier(0, 1, 1, 1),
+  "regular-transition": ease,
+  "background": #422
+);
+
+$theme: $fun-theme;
 
 html,
 :root {
@@ -22,19 +37,19 @@ body {
   height: 100%;
   font-family: 'Courier New', Courier, monospace;
   font-size: 1.25rem;
-  background-color: $dark-serif-theme-dark;
+  background-color: map.get($theme, "background");
   overflow: hidden;
 }
 
 .header {
   text-align: center;
-  color: $dark-serif-theme-white-50;
+  color: map.get($theme, "primary-50");
   padding: 1rem;
   height: 2rem;
   display: flex;
   justify-content: space-between;
   opacity: 1;
-  transition: all 0.2s $dark-serif-theme-fast-transition;
+  transition: all 0.2s map.get($theme, "fast-transition");
 }
 
 .cursor {
@@ -42,8 +57,8 @@ body {
   height: 8vmin;
   width: 8vmin;
   opacity: 0;
-  background-color: $dark-serif-theme-white-25;
-  transition: all 0.2s $dark-serif-theme-regular-transition;
+  background-color: map.get($theme, "primary-25");
+  transition: all 0.2s map.get($theme, "regular-transition");
   transform: translate(-50%, -50%);
 
   &.incorrect {
@@ -58,7 +73,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: all 0.2s $dark-serif-theme-fast-transition;
+  transition: all 0.2s map.get($theme, "fast-transition");
 }
 
 .grid {
@@ -66,7 +81,7 @@ body {
   width: 100%;
   height: 100%;
   filter: blur(3vmin);
-  transition: all 0.2s $dark-serif-theme-fast-transition, opacity 0.4s $dark-serif-theme-regular-transition;
+  transition: all 0.2s map.get($theme, "fast-transition, opacity 0.4s $dark-serif-theme-regular-transition");
 }
 
 .description,
@@ -78,8 +93,8 @@ body {
   text-align: center;
   align-items: center;
   inset: 0;
-  color: $dark-serif-theme-white-75;
-  transition: all 0.4s $dark-serif-theme-fast-transition;
+  color: map.get($theme, "primary-75");
+  transition: all 0.4s map.get($theme, "fast-transition");
   transform: translateX(0%);
   font-size: max(1.25rem, 4vmin);
   padding: 1rem;
@@ -89,10 +104,11 @@ body {
   overflow: hidden;
   position: relative;
   aspect-ratio: 1;
-  border: 1px solid $dark-serif-theme-white-75;
   margin: 1rem;
-  transition: font-size 0.4s $dark-serif-theme-fast-transition;
+  transition: font-size 0.4s map.get($theme, "fast-transition");
   font-size: 12vmin;
+
+  border: 1px solid map.get($theme, "primary-75");
 
   &.shake {
     animation: 0.4s ease 0s 1 incorrect;
@@ -119,10 +135,10 @@ body {
 .instructions {
   max-width: 40rem;
   padding: 1rem;
-  color: $dark-serif-theme-white-75;
+  color: map.get($theme, "primary-75");
   transform: translateX(-100%);
   opacity: 0;
-  transition: all 0.2s $dark-serif-theme-regular-transition;
+  transition: all 0.2s map.get($theme, "regular-transition");
 }
 
 .results {
@@ -130,7 +146,7 @@ body {
   font-weight: 900;
   opacity: 0;
   filter: blur(1vmin);
-  transition: all 0.2s $dark-serif-theme-fast-transition;
+  transition: all 0.2s map.get($theme, "fast-transition");
 }
 
 .token {
@@ -140,14 +156,14 @@ body {
 .char {
   display: grid;
   place-content: center;
-  color: $dark-serif-theme-white-50;
+  color: map.get($theme, "primary-50");
 
   &.incorrect {
     color: #f00;
   }
 
   &.highlighted {
-    color: $dark-serif-theme-white-100;
+    color: map.get($theme, "primary-100");
   }
 }
 
@@ -161,22 +177,22 @@ body {
 
 .button {
   background-color: transparent;
-  border: 1px solid $dark-serif-theme-white-75;
+  border: 1px solid map.get($theme, "primary-75");
   font-size: 1.25rem;
   padding: 0.9375rem;
-  color: $dark-serif-theme-white-75;
+  color: map.get($theme, "primary-75");
   font-family: 'Courier New', Courier, monospace;
-  transition: all 0.2s $dark-serif-theme-fast-transition;
+  transition: all 0.2s map.get($theme, "fast-transition");
   cursor: pointer;
 
   &:hover {
-    border: 1px solid $dark-serif-theme-white-100;
-    color: $dark-serif-theme-white-100;
+    border: 1px solid map.get($theme, "primary-100");
+    color: map.get($theme, "primary-100");
   }
 
   &:active {
-    border: 1px solid $dark-serif-theme-white-75;
-    color: $dark-serif-theme-white-75;
+    border: 1px solid map.get($theme, "primary-75");
+    color: map.get($theme, "primary-75");
   }
 }
 
@@ -196,7 +212,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: $dark-serif-theme-dark;
+  background-color: map.get($theme, "background");
   // damn we are rly doing this already
   z-index: 1000;
   transition: transform 0.75s cubic-bezier(.41, -0.12, .77, -0.07);
