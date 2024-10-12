@@ -5,7 +5,7 @@ export function createToken(partialToken: Partial<GameToken>): GameToken {
     content: '',
     layout: {
       type: GameTokenLayoutType.NONE,
-      fillType: GameTokenLayoutFillType.LEFT_DOWN,
+      fillType: GameTokenLayoutFillType.LEFT_DOWN
     },
     hiddenUntilCorrect: false,
     highlightedWhenCorrect: true,

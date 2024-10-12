@@ -97,7 +97,8 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] config
   - [ ] custom layout system!!!!!
   - [ ] use layout field
-- [ ] clean up styles -- just put game state as class on body instead of all these one off class names?
+  - [x] add other bidirectional layout types
+- [x] clean up styles -- just put game state as class on body instead of all these one off class names?
 - [ ] press esc to unfocus input
 - [ ] figure out where to show timer / acc
 - [ ] shouldnt be able to type in grid before game starts
@@ -107,6 +108,10 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] dom read/write optimization
 - [ ] fix last letter error still showing after results screen
 - [ ] fix cursor not updating when resize / transition of screen
+- [ ] fix spiral outward and counter/clockwise direction
+- [ ] get initial position from next fill
+- [ ] convert all of game layout funcinto generators? maybe?
+- [ ] fix moving cursor around input and typing
 
 ### EVENTUALLY...
 - [ ] percentiles

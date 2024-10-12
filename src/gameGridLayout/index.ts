@@ -22,16 +22,16 @@ export class GameGridLayout {
     let y = ringNumber;
     let deltaX = cols - 1 - 2 * ringNumber;
     let deltaY = rows - 1 - 2 * ringNumber;
-    let direction = 1;
+    let increment = 1;
 
     for (let j = 0; j < 2; j++) {
-      for (let i = 0; i < deltaX; i++, x += direction) {
+      for (let i = 0; i < deltaX; i++, x += increment) {
         if (!this.layoutMatrix[y][x]) {
           yield { x, y };
         }
       }
 
-      for (let i = 0; i < deltaY; i++, y += direction) {
+      for (let i = 0; i < deltaY; i++, y += increment) {
         if (!this.layoutMatrix[y][x]) {
           yield { x, y };
         }
@@ -43,7 +43,7 @@ export class GameGridLayout {
         }
       }
 
-      direction *= -1;
+      increment *= -1;
     }
   }
 
@@ -85,6 +85,46 @@ export class GameGridLayout {
       case GameTokenLayoutFillType.RIGHT_UP:
         for (let y = rows - 1; y >= 0; y--) {
           for (let x = cols - 1; x >= 0; x--) {
+            if (!this.layoutMatrix[y][x]) {
+              yield { x, y };
+            }
+          }
+        }
+        return;
+
+      case GameTokenLayoutFillType.UP_LEFT:
+        for (let x = cols - 1; x >= 0; x--) {
+          for (let y = rows - 1; y >= 0; y--) {
+            if (!this.layoutMatrix[y][x]) {
+              yield { x, y };
+            }
+          }
+        }
+        return;
+
+      case GameTokenLayoutFillType.UP_RIGHT:
+        for (let x = 0; x < cols; x++) {
+          for (let y = rows - 1; y >= 0; y--) {
+            if (!this.layoutMatrix[y][x]) {
+              yield { x, y };
+            }
+          }
+        }
+        return;
+
+      case GameTokenLayoutFillType.DOWN_LEFT:
+        for (let x = cols - 1; x >= 0; x--) {
+          for (let y = 0; y < rows; y++) {
+            if (!this.layoutMatrix[y][x]) {
+              yield { x, y };
+            }
+          }
+        }
+        return;
+
+      case GameTokenLayoutFillType.DOWN_RIGHT:
+        for (let x = 0; x < cols; x++) {
+          for (let y = 0; y < rows; y++) {
             if (!this.layoutMatrix[y][x]) {
               yield { x, y };
             }

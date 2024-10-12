@@ -5,35 +5,30 @@ import { GameGrid } from './gameGrid';
 import "./index.scss";
 import { GameConfig, GameTokenLayoutFillType, GameTokenLayoutType } from './types';
 
-const threeLetterWords = ["bat", "cat", "sat", "fat", "ate", "eat", "but", "act", "set", "run", "far", "car", "rat", "set"];
-const twoLetterWords = ["at", "be", "do", "go", "he", "in", "it", "me", "my", "no", "of", "on", "or", "so", "to", "up", "us", "we"];
+const sentences = [
+  "quick brown fox",
+  "the eiffel tower",
+  "hello world",
+  "not my cup of tea",
+  "raining cats and dogs",
+  "a piece of cake",
+  "a dime a dozen",
+  "back to the drawing board",
+  "barking up the wrong tree",
+]
 
 const randomElementFrom = (array: string[]) => array[Math.floor(Math.random() * array.length)];
 
 const config: GameConfig = {
   id: 0,
   rows: 5,
-  cols: 8,
+  cols: 5,
   tokens: [
     createToken({
-      content: "helloworld",
+      content: "helloworld!!!",
       layout: {
         type: GameTokenLayoutType.NONE,
-        fillType: GameTokenLayoutFillType.SPIRAL_CLOCKWISE_INWARDS,
-      },
-    }),
-    createToken({
-      content: "IAMYOURGOD...",
-      layout: {
-        type: GameTokenLayoutType.NONE,
-        fillType: GameTokenLayoutFillType.LEFT_UP,
-      },
-    }),
-    createToken({
-      content: "ENOUGH",
-      layout: {
-        type: GameTokenLayoutType.NONE,
-        fillType: GameTokenLayoutFillType.RANDOM,
+        fillType: GameTokenLayoutFillType.LEFT_DOWN
       },
     }),
   ]
