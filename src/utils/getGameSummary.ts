@@ -7,7 +7,7 @@ export function getGameSummary(state: GameState): string {
   const summaryLines = [
     `stickies! #${id}`,
     `completed in ${speed} with ${mistakes}`,
-    `try it at https://example.com`,
+    `try it at https://smelly.zone/stickies`,
   ];
 
   return summaryLines.join("\n");
