@@ -125,6 +125,7 @@ so much stuff that im jt gonna stop updating this lol
 - [x] animate countdown in increasing font size?
 - [x] why winning sound effect sounds weird
 - [ ] refactor 2...
+- [ ] analytics
 
 ### EVENTUALLY...
 - [ ] percentiles
