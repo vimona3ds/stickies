@@ -89,7 +89,6 @@ so much stuff that im jt gonna stop updating this lol
 - [x] improve sounds
 - [x] improve animations
 - [ ] improve styles/branding
-- [ ] theme system?
 - [ ] dev
   - [ ] linter
   - [ ] enable source maps in ts/webpack config
@@ -102,23 +101,30 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] press esc to unfocus input
 - [x] figure out where to show timer / acc
 - [x] shouldnt be able to type in grid before game starts
-- [ ] timer should not suddenly show up
-- [ ] figure out better place for timer? or dont show it at all?
+- [x] timer should not suddenly show up
+- [ ] settings
+  - [ ] difficulty
+  - [ ] clear progress
+  - [ ] hide background timer
+  - [ ] reduce motion
+  - [ ] theme
+    - [ ] boilerplate
+    - [ ] normal
+    - [ ] high contrast
 - [ ] difficulty setting
 - [ ] dom read/write optimization
 - [ ] fix last letter error still showing after results screen
 - [ ] fix cursor not updating when resize / transition of screen
 - [ ] fix spiral outward and counter/clockwise direction
-- [ ] get initial position from next fill
+- [ ] get initial position from next fill?
 - [ ] convert all of game layout funcinto generators? maybe?
 - [ ] fix moving cursor around input and typing
 - [ ] clean up files / folder structure (more complicated than necessary)
 - [ ] pass list of layout types in token in order of preference...
 - [ ] overlapping letters
-- [ ] reduced motion
-- [ ] high contrast theme
-- [ ] animate countdown in increasing font size?
-- [ ] why winning sound effect sounds weird
+- [x] animate countdown in increasing font size?
+- [x] why winning sound effect sounds weird
+- [ ] refactor 2...
 
 ### EVENTUALLY...
 - [ ] percentiles

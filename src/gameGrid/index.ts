@@ -285,7 +285,12 @@ export class GameGrid {
       if (lastInputIncorrect) {
         charElement.classList.add("incorrect");
         cursorElement.classList.add("incorrect");
-        gameElement.classList.add("shake");
+        // fuck this cannot be the best way to do this
+        // prob should delay removal  + debounce
+        gameElement.classList.remove("shake");
+        setTimeout(() => {
+          gameElement.classList.add("shake");
+        }, 0);
       } else {
         charElement.classList.remove("incorrect");
         cursorElement.classList.remove("incorrect");
