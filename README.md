@@ -115,6 +115,10 @@ so much stuff that im jt gonna stop updating this lol
 - [ ] clean up files / folder structure (more complicated than necessary)
 - [ ] pass list of layout types in token in order of preference...
 - [ ] overlapping letters
+- [ ] reduced motion
+- [ ] high contrast theme
+- [ ] animate countdown in increasing font size?
+- [ ] why winning sound effect sounds weird
 
 ### EVENTUALLY...
 - [ ] percentiles

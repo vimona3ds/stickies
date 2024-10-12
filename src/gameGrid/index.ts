@@ -23,6 +23,7 @@ export class GameGrid {
   tokenElements: HTMLElement[];
   charElementMatrix: HTMLElement[][];
   countingDown: boolean;
+  showingInstructions: boolean;
   lastInputValue: string;
   resultsInterval?: NodeJS.Timeout;
 
@@ -33,6 +34,7 @@ export class GameGrid {
     this.tokenElements = [];
     this.charElementMatrix = [];
     this.countingDown = false;
+    this.showingInstructions = false;
     this.lastInputValue = "";
 
     const { state: { config: { rows, cols } } } = game;
@@ -44,6 +46,7 @@ export class GameGrid {
     this.createEventListeners();
 
     game.dispatch({ type: GameActionType.SET_READY });
+    this.update();
   }
 
   placeCellAtCoordinates(charElement: HTMLElement, { x, y }: Coordinates): void {
@@ -84,8 +87,10 @@ export class GameGrid {
   async countDown(): Promise<void> {
     this.countingDown = true;
 
-    const { gameElements: { descriptionElement } } = this;
+    const { gameElements: { descriptionElement, gameElement } } = this;
     const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+    gameElement.classList.add("counting-down");
 
     descriptionElement.textContent = "3";
     sounds.countdown.play();
@@ -101,24 +106,31 @@ export class GameGrid {
   }
 
   createEventListeners(): void {
-    const { game, gameElements: { inputElement, shareElement } } = this;
+    const { game, gameElements: { inputElement, shareElement, instructionsButtonElement, hideInstructionsButtonElement } } = this;
 
     window.addEventListener('keydown', () => {
+      if (this.showingInstructions) {
+        return;
+      }
+
       inputElement.focus();
     });
 
     inputElement.addEventListener('focus', async () => {
       this.updateBodyClassNames();
 
-      if (game.state.status !== GameStatus.READY || this.countingDown) {
+      if (game.state.status !== GameStatus.READY || this.countingDown || this.showingInstructions) {
         return;
       }
+
+      instructionsButtonElement.innerHTML = "good luck!"
+      instructionsButtonElement.classList.add("hidden");
 
       await this.countDown();
 
       game.dispatch({ type: GameActionType.START_PLAYING });
       sounds.start.play();
-      sounds.playing.play();
+      sounds.playing.play(0.75);
       inputElement.focus();
 
       this.update();
@@ -157,6 +169,16 @@ export class GameGrid {
         shareElement.textContent = "share results";
       }, 1500);
     });
+
+    instructionsButtonElement.addEventListener('click', () => {
+      this.showingInstructions = true;
+      document.body.classList.add("showing-instructions");
+    })
+
+    hideInstructionsButtonElement.addEventListener('click', () => {
+      this.showingInstructions = false;
+      document.body.classList.remove("showing-instructions");
+    })
   }
 
   updateInputElement(): void {
@@ -269,8 +291,11 @@ export class GameGrid {
     }
 
     if (state.status === GameStatus.RESULTS) {
+      for (const sound of Object.values(sounds)) {
+        sound.stop();
+      }
+
       sounds.complete.play();
-      sounds.playing.stop();
 
       if (this.resultsInterval) {
         clearInterval(this.resultsInterval);

@@ -16,7 +16,9 @@ window.addEventListener('load', () => {
     speedElement: document.querySelector('.speed'),
     mistakesElement: document.querySelector('.mistakes'),
     shareElement: document.querySelector('.share'),
-    gameElement: document.querySelector('.game')
+    gameElement: document.querySelector('.game'),
+    instructionsButtonElement: document.querySelector('.instructions-button'),
+    hideInstructionsButtonElement: document.querySelector('.hide-instructions')
   }
 
   if (!isGameElements(gameElements)) {

@@ -2,6 +2,7 @@ $white-25: rgba(255, 255, 255, 0.25);
 $white-50: rgba(255, 255, 255, 0.50);
 $white-75: rgba(255, 255, 255, 0.75);
 $white-100: rgba(255, 255, 255, 1);
+$dark: #222;
 
 html,
 :root {
@@ -16,8 +17,8 @@ body {
   width: 100%;
   height: 100%;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.5rem;
-  background-color: #222;
+  font-size: 1.25rem;
+  background-color: $dark;
   overflow: hidden;
 }
 
@@ -56,18 +57,6 @@ body {
   transition: all 0.2s ease;
 }
 
-.game {
-  position: relative;
-  aspect-ratio: 1;
-  border: 1px solid $white-75;
-  margin: 1rem;
-  font-size: 12vmin;
-
-  &.shake {
-    animation: 0.4s ease 0s 1 incorrect;
-  }
-}
-
 .grid {
   display: grid;
   width: 100%;
@@ -87,7 +76,36 @@ body {
   inset: 0;
   color: $white-75;
   transition: all 0.2s ease;
-  font-size: 2rem;
+  transform: translateX(0%);
+  font-size: max(1.25rem, 4vmin);
+  padding: 1rem;
+}
+
+.game {
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid $white-75;
+  margin: 1rem;
+  font-size: 12vmin;
+
+  &.shake {
+    animation: 0.4s ease 0s 1 incorrect;
+  }
+
+  &.counting-down {
+    .description {
+      font-size: 12vmin;
+    }
+  }
+}
+
+.instructions {
+  padding: 1rem;
+  color: $white-75;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: all 0.2s ease;
 }
 
 .results {
@@ -124,17 +142,14 @@ body {
   z-index: 100;
 }
 
-.share {
-  margin: 3vmin;
+.button {
   background-color: transparent;
   border: 1px solid $white-75;
   color: $white-75;
   font-size: 4vmin;
   padding: 3vmin;
   font-family: 'Courier New', Courier, monospace;
-  opacity: 0;
-  position: absolute;
-  bottom: 2vmin;
+  transition: all 0.3s ease;
   cursor: pointer;
 
   &:hover {
@@ -146,6 +161,32 @@ body {
     border: 1px solid $white-75;
     color: $white-75;
   }
+}
+
+// these classes should be consistently named
+.share {
+  opacity: 0;
+  margin: 3vmin;
+  bottom: 2vmin;
+  position: absolute;
+}
+
+.instructions-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $dark;
+  // damn we are rly doing this already
+  z-index: 1000;
+  transition: transform 0.75s cubic-bezier(.41, -0.12, .77, -0.07);
+
+  &.hidden {
+    transform: translateX(100vw);
+  }
+}
+
+.hide-instructions {
+  margin-top: 2rem;
 }
 
 /* would be cool if the grid was random or animated or something while blurred */
@@ -196,6 +237,21 @@ body.game-results {
 
   .input {
     z-index: -100;
+  }
+}
+
+body.showing-instructions {
+  .container {
+    filter: blur(4vmin);
+  }
+
+  .instructions {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .cursor {
+    opacity: 0;
   }
 }
 
