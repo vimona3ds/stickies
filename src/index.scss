@@ -99,14 +99,17 @@ body {
   &.counting-down {
     &-3 .description {
       font-size: 12vmin;
+      font-weight: 900;
     }
 
     &-2 .description {
       font-size: 16vmin;
+      font-weight: 900;
     }
 
     &-1 .description {
       font-size: 20vmin;
+      font-weight: 900;
     }
   }
 }
