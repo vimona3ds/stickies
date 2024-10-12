@@ -116,10 +116,15 @@ export class GameGrid {
   }
 
   createEventListeners(): void {
-    const { game, gameElements: { inputElement, shareElement, instructionsButtonElement, hideInstructionsButtonElement } } = this;
+    const { game, gameElements: { inputElement, shareButtonElement, instructionsButtonElement, hideInstructionsButtonElement } } = this;
 
-    window.addEventListener('keydown', () => {
+    window.addEventListener('keydown', e => {
+      console.log(e);
       if (this.showingInstructions) {
+        return;
+      }
+
+      if (!e.key.match(/^.$/) || e.metaKey || e.shiftKey || e.ctrlKey) {
         return;
       }
 
@@ -170,13 +175,13 @@ export class GameGrid {
       this.lastInputValue = inputElement.value;
     });
 
-    shareElement.addEventListener('click', () => {
+    shareButtonElement.addEventListener('click', () => {
       copyToClipboard(getGameSummary(game.state));
 
-      shareElement.textContent = "copied to clipboard";
+      shareButtonElement.textContent = "copied to clipboard";
 
       setTimeout(() => {
-        shareElement.textContent = "share results";
+        shareButtonElement.textContent = "share results";
       }, 1500);
     });
 

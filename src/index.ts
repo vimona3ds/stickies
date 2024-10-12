@@ -15,10 +15,10 @@ window.addEventListener('load', () => {
     resultsElement: document.querySelector('.results'),
     speedElement: document.querySelector('.speed'),
     mistakesElement: document.querySelector('.mistakes'),
-    shareElement: document.querySelector('.share'),
+    shareButtonElement: document.querySelector('.share-button'),
     gameElement: document.querySelector('.game'),
     instructionsButtonElement: document.querySelector('.instructions-button'),
-    hideInstructionsButtonElement: document.querySelector('.hide-instructions')
+    hideInstructionsButtonElement: document.querySelector('.hide-instructions-button')
   }
 
   if (!isGameElements(gameElements)) {

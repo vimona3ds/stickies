@@ -23,7 +23,7 @@ export type GameElements = {
   resultsElement: HTMLElement;
   speedElement: HTMLElement;
   mistakesElement: HTMLElement;
-  shareElement: HTMLElement;
+  shareButtonElement: HTMLElement;
   gameElement: HTMLElement;
   instructionsButtonElement: HTMLElement;
   hideInstructionsButtonElement: HTMLElement;
