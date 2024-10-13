@@ -58,3 +58,8 @@ config: Record<string, Component>
 on window.location update, check against config, if match, then 
 
 uhhh its so late my brain is fried ill come back to this tmr
+
+## update
+now i have to deal with destruction of a game to handle a new game on retry
+
+and at this point i am giving up and using react. i would say i have reached a level of complexity that warrants it.

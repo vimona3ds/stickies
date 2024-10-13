@@ -178,7 +178,7 @@ export class GameGrid {
     shareButtonElement.addEventListener('click', () => {
       copyToClipboard(getGameSummary(game.state));
 
-      shareButtonElement.textContent = "copied to clipboard";
+      shareButtonElement.textContent = "copied to clipboard!";
 
       setTimeout(() => {
         shareButtonElement.textContent = "share results";
