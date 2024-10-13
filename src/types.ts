@@ -28,6 +28,7 @@ export type GameElements = {
   instructionsButtonElement: HTMLElement;
   hideInstructionsButtonElement: HTMLElement;
   idElement: HTMLElement;
+  utilityBarElement: HTMLElement;
 }
 
 export enum GameStatus {

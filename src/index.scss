@@ -1,5 +1,5 @@
 @use "sass:map";
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 $dark-serif-theme: (
   "primary-25": rgba(255, 255, 255, 0.25),
@@ -8,20 +8,41 @@ $dark-serif-theme: (
   "primary-100": rgba(255, 255, 255, 1),
   "fast-transition": cubic-bezier(0, 1, 1, 1),
   "regular-transition": ease,
-  "background": #222
+  "background": #222,
+  "min-font-size": 1.25rem,
+  "border": 1px solid rgba(255, 255, 255, 0.75),
+  "border-hover": 1px solid rgba(255, 255, 255, 1),
+  "border-radius": 0,
+  "box-shadow": none,
+  "button-padding": 0.9375rem,
+  "game-button-padding": 3vmin,
+  "font-family": 'Raleway',
+  "utility-bar-height": 10vmin
 );
 
-$fun-theme: (
-  "primary-25": rgba(255, 55, 255, 0.25),
-  "primary-50": rgba(255, 55, 255, 0.50),
-  "primary-75": rgba(255, 55, 255, 0.75),
-  "primary-100": rgba(255, 55, 255, 1),
-  "fast-transition": cubic-bezier(0, 1, 1, 1),
-  "regular-transition": ease,
-  "background": #422
-);
+// $fun-theme: (
+//   "primary-25": rgba(255, 55, 255, 0.25),
+//   "primary-50": rgba(255, 55, 255, 0.50),
+//   "primary-75": rgba(255, 55, 255, 0.75),
+//   "primary-100": rgba(255, 55, 255, 1),
+//   "fast-transition": cubic-bezier(0, 1, 1, 1),
+//   "regular-transition": ease,
+//   "background": #fee,
+//   "min-font-size": 1.5rem,
+//   "border": 3px solid rgba(255, 55, 255, 0.75),
+//   "border-hover": 3px solid rgba(255, 55, 255, 1),
+//   "border-radius": 1vmin,
+//   "box-shadow": 3px 3px rgba(255, 55, 255, 0.75),
+//   "button-padding": 1rem 1.75rem,
+//   "game-button-padding": 3vmin 5vmin
+// );
 
-$theme: $fun-theme;
+// * {
+//   font-family: "Comic Neue";
+//   letter-spacing: 2px;
+// }
+
+$theme: $dark-serif-theme;
 
 html,
 :root {
@@ -35,8 +56,8 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.25rem;
+  font-family: map.get($theme, "font-family"), 'Courier New', Courier, monospace;
+  font-size: map.get($theme, "min-font-size");
   background-color: map.get($theme, "background");
   overflow: hidden;
 }
@@ -60,6 +81,8 @@ body {
   background-color: map.get($theme, "primary-25");
   transition: all 0.2s map.get($theme, "regular-transition");
   transform: translate(-50%, -50%);
+
+  border-radius: map.get($theme, "border-radius");
 
   &.incorrect {
     background-color: rgba(255, 0, 0, 0.25);
@@ -96,7 +119,7 @@ body {
   color: map.get($theme, "primary-75");
   transition: all 0.4s map.get($theme, "fast-transition");
   transform: translateX(0%);
-  font-size: max(1.25rem, 4vmin);
+  font-size: max(map.get($theme, "min-font-size"), 4vmin);
   padding: 1rem;
 }
 
@@ -108,7 +131,9 @@ body {
   transition: font-size 0.4s map.get($theme, "fast-transition");
   font-size: 12vmin;
 
-  border: 1px solid map.get($theme, "primary-75");
+  border: map.get($theme, "border");
+  border-radius: map.get($theme, "border-radius");
+  box-shadow: map.get($theme, "box-shadow");
 
   &.shake {
     animation: 0.4s ease 0s 1 incorrect;
@@ -117,17 +142,17 @@ body {
   &.counting-down {
     &-3 .description {
       font-size: 12vmin;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     &-2 .description {
       font-size: 16vmin;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     &-1 .description {
       font-size: 20vmin;
-      font-weight: 900;
+      font-weight: 700;
     }
   }
 }
@@ -141,12 +166,60 @@ body {
   transition: all 0.2s map.get($theme, "regular-transition");
 }
 
+.rating {
+  color: map.get($theme, "primary-50");
+  font-size: 4vmin;
+}
+
 .results {
-  font-size: 12vmin;
-  font-weight: 900;
+  font-weight: 700;
   opacity: 0;
   filter: blur(1vmin);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5vmin;
   transition: all 0.2s map.get($theme, "fast-transition");
+  padding-top: 4vmin;
+  padding-bottom: calc(map.get($theme, "utility-bar-height") + 4vmin);
+}
+
+.utility-bar {
+  // :(
+  z-index: 100000;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: map.get($theme, "utility-bar-height");
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 4vmin;
+
+  transition: transform 0.75s cubic-bezier(.41, -0.12, .77, -0.07);
+
+  &.hidden {
+    transform: translateX(100vw);
+  }
+
+  &.no-transition {
+    transition: none;
+  }
+}
+
+.info {
+  display: grid;
+  place-content: center;
+  flex-grow: 1;
+}
+
+.speed {
+  font-size: 20vmin;
+}
+
+.mistakes {
+  font-size: 8vmin;
 }
 
 .token {
@@ -176,54 +249,47 @@ body {
 }
 
 .button {
+  font-family: map.get($theme, "font-family"), 'Courier New', Courier, monospace;
   background-color: transparent;
-  border: 1px solid map.get($theme, "primary-75");
-  font-size: 1.25rem;
-  padding: 0.9375rem;
+  border: map.get($theme, "border");
+  font-size: map.get($theme, "min-font-size");
+  padding: map.get($theme, "button-padding");
   color: map.get($theme, "primary-75");
-  font-family: 'Courier New', Courier, monospace;
   transition: all 0.2s map.get($theme, "fast-transition");
+  border-radius: map.get($theme, "border-radius");
+  box-shadow: map.get($theme, "box-shadow");
   cursor: pointer;
 
   &:hover {
-    border: 1px solid map.get($theme, "primary-100");
+    border: map.get($theme, "border-hover");
     color: map.get($theme, "primary-100");
   }
 
   &:active {
-    border: 1px solid map.get($theme, "primary-75");
+    border: map.get($theme, "border");
     color: map.get($theme, "primary-75");
   }
 }
 
 .game-button {
   font-size: 4vmin;
-  padding: 3vmin;
-}
-
-.share-button {
-  opacity: 0;
-  margin: 3vmin;
-  bottom: 2vmin;
-  position: absolute;
+  padding: map.get($theme, "game-button-padding");
+  background-color: map.get($theme, "background");
+  z-index: 10000;
 }
 
 .instructions-button {
-  position: absolute;
-  top: 0;
-  left: 0;
   background-color: map.get($theme, "background");
   // damn we are rly doing this already
   z-index: 1000;
-  transition: transform 0.75s cubic-bezier(.41, -0.12, .77, -0.07);
-
-  &.hidden {
-    transform: translateX(100vw);
-  }
+  // transition: transform 0.75s cubic-bezier(.41, -0.12, .77, -0.07);
+  // &.hidden {
+  //   transform: translateX(100vw);
+  // }
 }
 
 .hide-instructions-button {
-  margin-top: 1.25rem;
+  margin-top: map.get($theme, "min-font-size");
 }
 
 /* would be cool if the grid was random or animated or something while blurred */
@@ -244,6 +310,16 @@ body.game-loading {
   .grid {
     opacity: 0;
   }
+
+  .utility-bar>.button:not(.instructions-button) {
+    display: none;
+  }
+}
+
+body.game-ready {
+  .utility-bar>.button:not(.instructions-button) {
+    display: none;
+  }
 }
 
 body.game-playing {
@@ -262,6 +338,15 @@ body.game-playing {
   .results {
     opacity: 0.1;
   }
+
+  .utility-bar>.button {
+    display: none;
+    opacity: 0;
+  }
+
+  .rating {
+    opacity: 0;
+  }
 }
 
 body.game-results {
@@ -274,12 +359,26 @@ body.game-results {
     filter: blur(0vmin);
   }
 
+  .rating {
+    opacity: 1;
+  }
+
   .share-button {
     opacity: 1;
   }
 
   .input {
     z-index: -100;
+  }
+
+  .instructions-button {
+    display: none;
+    opacity: 0;
+  }
+
+  .utility-bar>.button:not(.instructions-button) {
+    display: block;
+    opacity: 1;
   }
 }
 

@@ -14,7 +14,11 @@
     <span class="id"></span>
   </div>
   <div class="container">
-    <button class="button game-button instructions-button">how do i play?</button>
+    <div class="utility-bar">
+      <button class="button game-button instructions-button">how do i play?</button>
+      <button class="button game-button share-button">share results</button>
+      <button class="button game-button try-again-button">try again</button>
+    </div>
     <input type="text" class="input">
     <div class="game">
       <div class="grid">
@@ -23,14 +27,17 @@
         <p>tap or type to start!</p>
       </div>
       <div class="results">
-        <span class="speed">0.00s</span>
-        <span class="mistakes">0 errors</span>
-        <button class="button game-button share-button">share results</button>
+        <span class="rating">congratulations! completed in:</span>
+        <div class="info">
+          <span class="speed">0.00s</span>
+          <span class="mistakes">0 errors</span>
+        </div>
+        <span class="rating">(top 0.1% of iPhone players!)</span>
       </div>
     </div>
   </div>
   <div class="instructions">
-    <h4>instructions</h4>
+    <h3>instructions</h3>
     <p>when the game starts, you will see a grid of symbols. you need to type all of the symbols in the grid to
       complete the game.</p>
     <p>the catch is that the symbols are out of order. to know what to type next, follow the cursor, or use your

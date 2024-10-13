@@ -19,7 +19,8 @@ window.addEventListener('load', () => {
     gameElement: document.querySelector('.game'),
     instructionsButtonElement: document.querySelector('.instructions-button'),
     hideInstructionsButtonElement: document.querySelector('.hide-instructions-button'),
-    idElement: document.querySelector('.id')
+    idElement: document.querySelector('.id'),
+    utilityBarElement: document.querySelector('.utility-bar')
   }
 
   if (!isGameElements(gameElements)) {

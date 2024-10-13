@@ -116,7 +116,7 @@ export class GameGrid {
   }
 
   createEventListeners(): void {
-    const { game, gameElements: { inputElement, shareButtonElement, instructionsButtonElement, hideInstructionsButtonElement } } = this;
+    const { game, gameElements: { inputElement, shareButtonElement, utilityBarElement, instructionsButtonElement, hideInstructionsButtonElement } } = this;
 
     window.addEventListener('keydown', e => {
       console.log(e);
@@ -139,7 +139,7 @@ export class GameGrid {
       }
 
       instructionsButtonElement.innerHTML = "good luck!"
-      instructionsButtonElement.classList.add("hidden");
+      utilityBarElement.classList.add("hidden");
 
       await this.countDown();
 
@@ -300,7 +300,7 @@ export class GameGrid {
   }
 
   updateResultsElement(): void {
-    const { game: { state }, gameElements: { speedElement, mistakesElement } } = this;
+    const { game: { state }, gameElements: { speedElement, mistakesElement, utilityBarElement } } = this;
     const updateResults = () => {
       const { speed, mistakes } = getGameResults(this.game.state);
 
@@ -318,6 +318,8 @@ export class GameGrid {
       }
 
       sounds.complete.play();
+      utilityBarElement.classList.add("no-transition");
+      utilityBarElement.classList.remove("hidden");
 
       if (this.resultsInterval) {
         clearInterval(this.resultsInterval);
