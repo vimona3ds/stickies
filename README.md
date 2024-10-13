@@ -126,6 +126,14 @@ so much stuff that im jt gonna stop updating this lol
 - [x] why winning sound effect sounds weird
 - [ ] refactor 2...
 - [ ] analytics
+- [x] fix apostrophe unicode not matching as apostrophe on ios
+- [ ] better game generator
+- [ ] retry button
+- [ ] fix complete sound playing when unfocus keyboard
+- [ ] fix keyboard not auto unfocusing after complete game
+- [ ] padding is a bit weird on larger grid sizes on ios
+- [ ] overscroll on ios due to animated utility bar not actually hiding
+- [ ] timer isnt updating in 0.05 increments anymore?
 
 ### EVENTUALLY...
 - [ ] percentiles

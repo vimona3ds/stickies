@@ -1,4 +1,5 @@
 import { GameState, GameStatus } from '../types';
+import { isLetterCorrect } from '../utils/isLetterCorrect';
 import { GameAction, GameActionType } from './actions';
 
 const UNDEFINED_CHAR = '';
@@ -46,7 +47,7 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
 
       // find first index where input does not match token Content
       const nextContentIndex = paddedInput
-        .map((char, index) => char === content[index])
+        .map((char, index) => isLetterCorrect(char, content[index]))
         .findIndex(correct => !correct);
 
       if (nextContentIndex === -1) {

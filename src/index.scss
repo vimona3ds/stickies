@@ -15,7 +15,7 @@ $dark-serif-theme: (
   "border-radius": 0,
   "box-shadow": none,
   "button-padding": 0.9375rem,
-  "game-button-padding": 3vmin,
+  "game-button-padding": 3vmin 5vmin,
   "font-family": 'Raleway',
   "utility-bar-height": 10vmin
 );
@@ -105,6 +105,7 @@ body {
   height: 100%;
   filter: blur(3vmin);
   transition: all 0.2s map.get($theme, "fast-transition, opacity 0.4s $dark-serif-theme-regular-transition");
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .description,
@@ -191,7 +192,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: map.get($theme, "utility-bar-height");
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: center;

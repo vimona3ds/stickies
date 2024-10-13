@@ -3,7 +3,7 @@ import { isGameElements } from './utils/isGameElements';
 import { GameGrid } from './gameGrid';
 import "./index.scss";
 import { createRandomGameConfig } from './utils/createRandomGameConfig';
-import { overrides } from './config';
+// import { overrides } from './config';
 import { loadAllSounds } from './audio';
 
 window.addEventListener('load', () => {
@@ -27,13 +27,12 @@ window.addEventListener('load', () => {
     return;
   }
 
-
   const id = 1 // getGameId();
-  const config = id in overrides ? overrides[id] : createRandomGameConfig();
-
-  loadAllSounds();
+  // const config = id in overrides ? overrides[id] : createRandomGameConfig();
 
   gameElements.idElement.innerHTML = `#${id}`;
 
-  new GameGrid(new Game(config), gameElements);
+  loadAllSounds();
+
+  new GameGrid(new Game(createRandomGameConfig()), gameElements);
 });
