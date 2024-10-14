@@ -1,10 +1,10 @@
-import { GameState, GameStatus } from '../types';
-import { createGameState } from '../utils/createGameState';
-import { createToken } from '../utils/createToken';
-import { GameAction, GameActionType } from './actions';
-import { reduceGameState } from './reducer';
+import { GameState, GameStatus } from "../types";
+import { createGameState } from "../utils/createGameState";
+import { createToken } from "../utils/createToken";
+import { GameAction, GameActionType } from "./actions";
+import { reduceGameState } from "./reducer";
 
-describe('reduceGameState', () => {
+describe("reduceGameState", () => {
   let initialState: GameState;
 
   beforeEach(() => {
@@ -12,32 +12,32 @@ describe('reduceGameState', () => {
       id: 0,
       rows: 0,
       cols: 0,
-      tokens: [createToken({})]
+      tokens: [createToken({})],
     });
   });
 
-  it('should be able to set ready when game is in loading state', () => {
+  it("should be able to set ready when game is in loading state", () => {
     initialState.status = GameStatus.LOADING;
     let action: GameAction = { type: GameActionType.SET_READY };
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.READY);
   });
 
-  it('should not be able to set ready when game is not in loading state', () => {
+  it("should not be able to set ready when game is not in loading state", () => {
     initialState.status = GameStatus.PLAYING;
     let action: GameAction = { type: GameActionType.SET_READY };
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.PLAYING);
   });
 
-  it('should be able to start playing when game is in ready state', () => {
+  it("should be able to start playing when game is in ready state", () => {
     initialState.status = GameStatus.READY;
     let action: GameAction = { type: GameActionType.START_PLAYING };
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.PLAYING);
   });
 
-  it('should not be able to start playing when game is not in ready state', () => {
+  it("should not be able to start playing when game is not in ready state", () => {
     initialState.status = GameStatus.RESULTS;
     let action: GameAction = { type: GameActionType.START_PLAYING };
     let newState = reduceGameState(initialState, action);
@@ -46,14 +46,14 @@ describe('reduceGameState', () => {
 
   // todo process input tests
 
-  it('should be able to show results when game is in playing state', () => {
+  it("should be able to show results when game is in playing state", () => {
     initialState.status = GameStatus.PLAYING;
     let action: GameAction = { type: GameActionType.SHOW_RESULTS };
     let newState = reduceGameState(initialState, action);
     expect(newState.status).toBe(GameStatus.RESULTS);
   });
 
-  it('should not be able to show results when game is not in playing state', () => {
+  it("should not be able to show results when game is not in playing state", () => {
     initialState.status = GameStatus.READY;
     let action: GameAction = { type: GameActionType.SHOW_RESULTS };
     let newState = reduceGameState(initialState, action);

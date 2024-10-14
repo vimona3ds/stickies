@@ -8,5 +8,5 @@ export enum GameActionType {
 export type GameAction =
   | { type: GameActionType.SET_READY }
   | { type: GameActionType.START_PLAYING }
-  | { type: GameActionType.PROCESS_INPUT, input: string }
-  | { type: GameActionType.SHOW_RESULTS }
+  | { type: GameActionType.PROCESS_INPUT; input: string }
+  | { type: GameActionType.SHOW_RESULTS };

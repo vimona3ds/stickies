@@ -1,11 +1,15 @@
-import { GameToken, GameTokenLayoutFillType, GameTokenLayoutType } from "../types";
+import {
+  GameToken,
+  GameTokenLayoutFillType,
+  GameTokenLayoutType,
+} from "../types";
 
 export function createToken(partialToken: Partial<GameToken>): GameToken {
   return {
-    content: '',
+    content: "",
     layout: {
       type: GameTokenLayoutType.NONE,
-      fillType: GameTokenLayoutFillType.LEFT_DOWN
+      fillType: GameTokenLayoutFillType.LEFT_DOWN,
     },
     hiddenUntilCorrect: false,
     highlightedWhenCorrect: true,

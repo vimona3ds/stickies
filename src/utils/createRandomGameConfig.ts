@@ -1,4 +1,10 @@
-import { GameConfig, GameToken, GameTokenLayout, GameTokenLayoutFillType, GameTokenLayoutType } from "../types";
+import {
+  GameConfig,
+  GameToken,
+  GameTokenLayout,
+  GameTokenLayoutFillType,
+  GameTokenLayoutType,
+} from "../types";
 import { createToken } from "./createToken";
 
 const phrases = [
@@ -195,7 +201,7 @@ const phrases = [
   "Southpaw".split(" "),
   "Spitting Image".split(" "),
   "Start From Scratch".split(" "),
-]
+];
 
 // if difficulty is hard, never show cases
 const sentences = [
@@ -269,10 +275,11 @@ const sentences = [
   ["911", "+", "1911", "=", "2822"],
   ["Cat", "In", "The", "Hat"],
   ["Go", "To", "https://smelly.zone"],
-  [(new Date()).toUTCString()]
+  [new Date().toUTCString()],
 ].concat(phrases);
 
-const randomElementFrom = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)];
+const randomElementFrom = <T>(array: T[]): T =>
+  array[Math.floor(Math.random() * array.length)];
 const bidirectionalLayoutTypes = [
   GameTokenLayoutFillType.LEFT_UP,
   GameTokenLayoutFillType.LEFT_DOWN,
@@ -282,7 +289,7 @@ const bidirectionalLayoutTypes = [
   GameTokenLayoutFillType.UP_RIGHT,
   GameTokenLayoutFillType.DOWN_LEFT,
   GameTokenLayoutFillType.DOWN_RIGHT,
-]
+];
 
 // can we generate this given a seed? like todays date in PST. so everyone gets the same thing
 export function createRandomGameConfig(): GameConfig {
@@ -292,8 +299,8 @@ export function createRandomGameConfig(): GameConfig {
     id: 0,
     rows: size,
     cols: size,
-    tokens: [] as GameToken[]
-  }
+    tokens: [] as GameToken[],
+  };
 
   const directionLayouts: GameTokenLayout[] = [
     {
@@ -320,7 +327,7 @@ export function createRandomGameConfig(): GameConfig {
       initialPosition: { x: 0, y: 0 },
       direction: { x: 1, y: 1 },
     },
-  ]
+  ];
 
   let wordsToUseDirectionLayout = 0;
   let wordsToUseSpiralLayout = 0;
@@ -328,7 +335,7 @@ export function createRandomGameConfig(): GameConfig {
   sentence.forEach((word, index) => {
     let layout: GameTokenLayout = {
       type: GameTokenLayoutType.NONE,
-      fillType: randomElementFrom(bidirectionalLayoutTypes)
+      fillType: randomElementFrom(bidirectionalLayoutTypes),
     };
 
     if (Math.random() < 0.2) {
@@ -348,10 +355,12 @@ export function createRandomGameConfig(): GameConfig {
       layout.fillType = GameTokenLayoutFillType.SPIRAL_CLOCKWISE_INWARDS;
     }
 
-    config.tokens.push(createToken({
-      content: word,
-      layout
-    }));
+    config.tokens.push(
+      createToken({
+        content: word,
+        layout,
+      }),
+    );
   });
 
   return config;

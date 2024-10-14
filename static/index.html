@@ -1,53 +1,15 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content"
+    />
+    <title>stickies! v0.2</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
-  <title>stickies! v0.1.1</title>
-</head>
-
-<body class="game-loading">
-  <div class="header">
-    <span class="title">stickies! v0.1.1</span>
-    <span class="id"></span>
-  </div>
-  <div class="container">
-    <div class="utility-bar">
-      <button class="button game-button instructions-button">how do i play?</button>
-      <button class="button game-button share-button">share results</button>
-      <button class="button game-button try-again-button">try again</button>
-    </div>
-    <input type="text" class="input">
-    <div class="game">
-      <div class="grid">
-      </div>
-      <div class="description">
-        <p>tap or type to start!</p>
-      </div>
-      <div class="results">
-        <span class="rating">congratulations! completed in:</span>
-        <div class="info">
-          <span class="speed">0.00s</span>
-          <span class="mistakes">0 errors</span>
-        </div>
-        <span class="rating"></span>
-      </div>
-    </div>
-  </div>
-  <div class="instructions">
-    <h3>instructions</h3>
-    <p>when the game starts, you will see a grid of letters, numbers, or symbols that could represent anything — a
-      quote, a math problem, or even total nonsense.</p>
-    <p>to win, type the symbols in the grid in order.</p>
-    <p>the catch is that the symbols are displayed out of order. to know what to type next, follow the cursor, or use
-      your intuition.</p>
-    <p>you will be timed, and mistakes will be counted. good luck!</p>
-    <button class="button hide-instructions-button">go back to game</button>
-  </div>
-
-  <div class="cursor"></div>
-</body>
-
+  <body>
+    <div id="root"></div>
+  </body>
 </html>

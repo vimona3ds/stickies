@@ -1,19 +1,19 @@
 export type Coordinates = {
   x: number;
   y: number;
-}
+};
 
 export type GameResults = {
   speed: string;
   mistakes: string;
-}
+};
 
 export type GameConfig = {
   id: number;
   rows: number;
   cols: number;
   tokens: GameToken[];
-}
+};
 
 export type GameElements = {
   gridElement: HTMLElement;
@@ -29,40 +29,40 @@ export type GameElements = {
   hideInstructionsButtonElement: HTMLElement;
   idElement: HTMLElement;
   utilityBarElement: HTMLElement;
-}
+};
 
 export enum GameStatus {
   LOADING = "LOADING",
   READY = "READY",
   PLAYING = "PLAYING",
-  RESULTS = "RESULTS"
+  RESULTS = "RESULTS",
 }
 
 export type GameState =
   | {
-    status: GameStatus.LOADING;
-    config: GameConfig;
-  }
+      status: GameStatus.LOADING;
+      config: GameConfig;
+    }
   | {
-    status: GameStatus.READY;
-    config: GameConfig;
-  }
+      status: GameStatus.READY;
+      config: GameConfig;
+    }
   | {
-    status: GameStatus.PLAYING;
-    tokenIndex: number;
-    tokenContentIndex: number;
-    lastInputIncorrect: boolean;
-    mistakes: number;
-    startTime: number;
-    config: GameConfig;
-  }
+      status: GameStatus.PLAYING;
+      tokenIndex: number;
+      tokenContentIndex: number;
+      lastInputIncorrect: boolean;
+      mistakes: number;
+      startTime: number;
+      config: GameConfig;
+    }
   | {
-    status: GameStatus.RESULTS;
-    mistakes: number;
-    startTime: number;
-    endTime: number;
-    config: GameConfig;
-  }
+      status: GameStatus.RESULTS;
+      mistakes: number;
+      startTime: number;
+      endTime: number;
+      config: GameConfig;
+    };
 
 export type GameToken = {
   content: string;
@@ -70,7 +70,7 @@ export type GameToken = {
   hiddenUntilCorrect: boolean;
   highlightedWhenCorrect: boolean;
   errorsShown: boolean;
-}
+};
 
 export enum GameTokenLayoutFillType {
   LEFT_DOWN = "LEFT_DOWN",
@@ -87,21 +87,24 @@ export enum GameTokenLayoutFillType {
   SPIRAL_CLOCKWISE_OUTWARDS = "SPIRAL_CLOCKWISE_OUTWARDS",
   // SPIRAL_COUNTERCLOCKWISE_INWARDS = "SPIRAL_COUNTERCLOCKWISE_INWARDS",
   // SPIRAL_COUNTERCLOCKWISE_OUTWARDS = "SPIRAL_COUNTERCLOCKWISE_OUTWARDS",
-  RANDOM = "RANDOM"
+  RANDOM = "RANDOM",
 }
 
 export enum GameTokenLayoutType {
   NONE = "NONE",
-  DIRECTION = "DIRECTION"
+  DIRECTION = "DIRECTION",
 }
 
 // theres an explicit placement defined by layout type
 // then if theres no space or no explicit placement, we use the fill type
 // to determine how to place the rest of the content
 export type GameTokenLayout = (
-  | { type: GameTokenLayoutType.NONE; }
-  | { type: GameTokenLayoutType.DIRECTION; initialPosition: Coordinates; direction: Coordinates; }
+  | { type: GameTokenLayoutType.NONE }
+  | {
+      type: GameTokenLayoutType.DIRECTION;
+      initialPosition: Coordinates;
+      direction: Coordinates;
+    }
 ) & {
   fillType: GameTokenLayoutFillType;
-}
-
+};

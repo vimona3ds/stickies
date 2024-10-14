@@ -1,4 +1,3 @@
-
 // from https://stackoverflow.com/questions/25654558/html5-js-play-same-sound-multiple-times-at-the-same-time
 window.AudioContext = window.AudioContext || (window as any).webkitAudioContext;
 
@@ -23,8 +22,8 @@ export class Sound {
     return new Promise((resolve, reject) => {
       const request = new XMLHttpRequest();
 
-      request.open('GET', this.url, true);
-      request.responseType = 'arraybuffer';
+      request.open("GET", this.url, true);
+      request.responseType = "arraybuffer";
 
       // Decode asynchronously:
 
@@ -45,7 +44,7 @@ export class Sound {
       };
 
       request.onerror = (err) => {
-        console.log('Sound XMLHttpRequest error:', err);
+        console.log("Sound XMLHttpRequest error:", err);
 
         reject(err);
       };
@@ -73,7 +72,6 @@ export class Sound {
 
     source.onended = () => {
       // source.stop(0);
-
       // this.sources.splice(insertedAt, 1);
     };
 
@@ -101,7 +99,6 @@ export class Sound {
 
     this.sources = [];
   }
-
 }
 
 export const sounds = {
@@ -110,9 +107,9 @@ export const sounds = {
   click: new Sound("./sounds/click.mp3"),
   complete: new Sound("./sounds/complete.mp3"),
   incorrect: new Sound("./sounds/incorrect.mp3"),
-  playing: new Sound("./sounds/playing.mp3", true)
-} as const
+  playing: new Sound("./sounds/playing.mp3", true),
+} as const;
 
 export async function loadAllSounds() {
-  await Promise.all(Object.values(sounds).map(sound => sound.load()));
+  await Promise.all(Object.values(sounds).map((sound) => sound.load()));
 }

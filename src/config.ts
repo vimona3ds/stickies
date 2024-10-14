@@ -9,7 +9,7 @@ export const overrides: Record<GameConfig["id"], GameConfig> = {
     tokens: [
       createToken({
         content: "hello",
-      })
-    ]
-  }
+      }),
+    ],
+  },
 };

@@ -4,15 +4,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/index.ts",
+  entry: "./src/new/index.tsx",
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: [
-          path.resolve(__dirname, "node_modules"),
-        ]
+        exclude: [path.resolve(__dirname, "node_modules")],
       },
       {
         test: /\.s[ac]ss$/i,
@@ -25,12 +23,12 @@ module.exports = {
           // Compiles Sass to CSS
           "sass-loader",
         ],
-      }
+      },
     ],
   },
   devServer: {
     static: "./static",
-    watchFiles: ['src/**/*', 'static/**/*'],
+    watchFiles: ["src/**/*", "static/**/*"],
   },
   plugins: [
     new MiniCssExtractPlugin(),

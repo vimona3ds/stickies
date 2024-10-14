@@ -1,5 +1,11 @@
 import { Game } from "../game";
-import { Coordinates, GameConfig, GameToken, GameTokenLayoutFillType, GameTokenLayoutType } from "../types";
+import {
+  Coordinates,
+  GameConfig,
+  GameToken,
+  GameTokenLayoutFillType,
+  GameTokenLayoutType,
+} from "../types";
 
 export class GameGridLayout {
   layoutMatrix: boolean[][];
@@ -7,10 +13,14 @@ export class GameGridLayout {
   availableCells: number;
 
   constructor(game: Game) {
-    const { state: { config } } = game;
+    const {
+      state: { config },
+    } = game;
     const { rows, cols } = config;
 
-    this.layoutMatrix = Array.from({ length: rows }, () => Array.from({ length: cols }, () => false));
+    this.layoutMatrix = Array.from({ length: rows }, () =>
+      Array.from({ length: cols }, () => false),
+    );
     this.config = config;
     this.availableCells = rows * cols;
   }
@@ -134,7 +144,9 @@ export class GameGridLayout {
 
       case GameTokenLayoutFillType.SPIRAL_CLOCKWISE_INWARDS:
         for (let ringNumber = 0; ringNumber <= maxRingNumber; ringNumber++) {
-          for (const coordinates of this.iterateRingClockwiseInward(ringNumber)) {
+          for (const coordinates of this.iterateRingClockwiseInward(
+            ringNumber,
+          )) {
             yield coordinates;
           }
         }
@@ -168,7 +180,10 @@ export class GameGridLayout {
     this.layoutMatrix[y][x] = true;
   }
 
-  placeTokenCellsByLayoutType(token: GameToken, cellCallback: (cellIndex: number, coordinates: Coordinates) => void): void {
+  placeTokenCellsByLayoutType(
+    token: GameToken,
+    cellCallback: (cellIndex: number, coordinates: Coordinates) => void,
+  ): void {
     const { rows, cols } = this.config;
     const { layout, content } = token;
 
@@ -178,7 +193,7 @@ export class GameGridLayout {
       case GameTokenLayoutType.DIRECTION:
         const {
           initialPosition: { x: initialX, y: initialY },
-          direction: { x: deltaX, y: deltaY }
+          direction: { x: deltaX, y: deltaY },
         } = layout;
 
         while (cellIndex < content.length) {
@@ -194,7 +209,7 @@ export class GameGridLayout {
 
           const coordinates = { x, y };
 
-          this.markCellUnavailable(coordinates)
+          this.markCellUnavailable(coordinates);
           cellCallback(cellIndex++, coordinates);
         }
 
@@ -205,12 +220,14 @@ export class GameGridLayout {
     }
 
     // fill rest of cells
-    for (const coordinates of this.iterateAvailableCordinatesPerFillType(layout.fillType)) {
+    for (const coordinates of this.iterateAvailableCordinatesPerFillType(
+      layout.fillType,
+    )) {
       if (cellIndex >= content.length) {
         break;
       }
 
-      this.markCellUnavailable(coordinates)
+      this.markCellUnavailable(coordinates);
       cellCallback(cellIndex++, coordinates);
     }
 

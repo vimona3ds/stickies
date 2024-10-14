@@ -1,11 +1,13 @@
-import { GameState, GameStatus } from '../types';
-import { isLetterCorrect } from '../utils/isLetterCorrect';
-import { GameAction, GameActionType } from './actions';
+import { GameState, GameStatus } from "../types";
+import { isLetterCorrect } from "../utils/isLetterCorrect";
+import { GameAction, GameActionType } from "./actions";
 
-const UNDEFINED_CHAR = '';
+const UNDEFINED_CHAR = "";
 
-
-export function reduceGameState(state: GameState, action: GameAction): GameState {
+export function reduceGameState(
+  state: GameState,
+  action: GameAction,
+): GameState {
   switch (action.type) {
     case GameActionType.SET_READY:
       if (state.status !== GameStatus.LOADING) {
@@ -16,7 +18,6 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
         ...state,
         status: GameStatus.READY,
       };
-
 
     case GameActionType.START_PLAYING:
       if (state.status !== GameStatus.READY) {
@@ -42,13 +43,17 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
       const { input } = action;
 
       // pad input so that it is at least the lengthof token Content
-      const paddedInput = [...input]
-        .concat(Array.from({ length: content.length - input.length }, () => UNDEFINED_CHAR));
+      const paddedInput = [...input].concat(
+        Array.from(
+          { length: content.length - input.length },
+          () => UNDEFINED_CHAR,
+        ),
+      );
 
       // find first index where input does not match token Content
       const nextContentIndex = paddedInput
         .map((char, index) => isLetterCorrect(char, content[index]))
-        .findIndex(correct => !correct);
+        .findIndex((correct) => !correct);
 
       if (nextContentIndex === -1) {
         // move to next token
@@ -58,7 +63,7 @@ export function reduceGameState(state: GameState, action: GameAction): GameState
           return {
             ...state,
             status: GameStatus.RESULTS,
-            endTime: Date.now()
+            endTime: Date.now(),
           };
         }
 

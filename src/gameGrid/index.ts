@@ -9,10 +9,10 @@ import { getGameSummary } from "../utils/getGameSummary";
 import { getTextContentFromChar } from "../utils/getTextContentFromChar";
 
 const gameStatusToClassNameMap: Record<GameStatus, string> = {
-  [GameStatus.LOADING]: 'game-loading',
-  [GameStatus.READY]: 'game-ready',
-  [GameStatus.PLAYING]: 'game-playing',
-  [GameStatus.RESULTS]: 'game-results',
+  [GameStatus.LOADING]: "game-loading",
+  [GameStatus.READY]: "game-ready",
+  [GameStatus.PLAYING]: "game-playing",
+  [GameStatus.RESULTS]: "game-results",
 };
 
 // should rly be gameDOM or something
@@ -41,7 +41,11 @@ export class GameGrid {
     this.showingInstructions = false;
     this.lastInputValue = "";
 
-    const { state: { config: { rows, cols } } } = game;
+    const {
+      state: {
+        config: { rows, cols },
+      },
+    } = game;
 
     // set up grid
     gameElements.gridElement.style.gridTemplate = `repeat(${rows}, 1fr) / repeat(${cols}, 1fr)`;
@@ -53,34 +57,47 @@ export class GameGrid {
     this.update();
   }
 
-  placeCellAtCoordinates(charElement: HTMLElement, { x, y }: Coordinates): void {
+  placeCellAtCoordinates(
+    charElement: HTMLElement,
+    { x, y }: Coordinates,
+  ): void {
     charElement.style.gridArea = `${y + 1} / ${x + 1} / span 1 / span 1`;
   }
 
   createTokenAndCharElements(): void {
-    const { game: { state: { config: { tokens } } }, gameElements: { gridElement } } = this;
+    const {
+      game: {
+        state: {
+          config: { tokens },
+        },
+      },
+      gameElements: { gridElement },
+    } = this;
 
     for (const token of tokens) {
       const { layout, content } = token;
       const matrixRow: HTMLElement[] = [];
 
-      const tokenElement = document.createElement('div');
-      tokenElement.classList.add('token');
+      const tokenElement = document.createElement("div");
+      tokenElement.classList.add("token");
 
       for (let i = 0; i < content.length; i++) {
         const char = content[i];
-        const charElement = document.createElement('span');
-        charElement.classList.add("char")
+        const charElement = document.createElement("span");
+        charElement.classList.add("char");
         charElement.textContent = getTextContentFromChar(char);
         tokenElement.appendChild(charElement);
 
         matrixRow.push(charElement);
       }
 
-      this.layout.placeTokenCellsByLayoutType(token, (cellIndex, coordinates) => {
-        const charElement = matrixRow[cellIndex];
-        this.placeCellAtCoordinates(charElement, coordinates);
-      });
+      this.layout.placeTokenCellsByLayoutType(
+        token,
+        (cellIndex, coordinates) => {
+          const charElement = matrixRow[cellIndex];
+          this.placeCellAtCoordinates(charElement, coordinates);
+        },
+      );
 
       gridElement.appendChild(tokenElement);
       this.tokenElements.push(tokenElement);
@@ -91,8 +108,11 @@ export class GameGrid {
   async countDown(): Promise<void> {
     this.countingDown = true;
 
-    const { gameElements: { descriptionElement, gameElement } } = this;
-    const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    const {
+      gameElements: { descriptionElement, gameElement },
+    } = this;
+    const wait = (ms: number) =>
+      new Promise((resolve) => setTimeout(resolve, ms));
 
     gameElement.classList.add("counting-down-3");
     descriptionElement.textContent = "3";
@@ -116,9 +136,18 @@ export class GameGrid {
   }
 
   createEventListeners(): void {
-    const { game, gameElements: { inputElement, shareButtonElement, utilityBarElement, instructionsButtonElement, hideInstructionsButtonElement } } = this;
+    const {
+      game,
+      gameElements: {
+        inputElement,
+        shareButtonElement,
+        utilityBarElement,
+        instructionsButtonElement,
+        hideInstructionsButtonElement,
+      },
+    } = this;
 
-    window.addEventListener('keydown', e => {
+    window.addEventListener("keydown", (e) => {
       console.log(e);
       if (this.showingInstructions) {
         return;
@@ -131,14 +160,18 @@ export class GameGrid {
       inputElement.focus();
     });
 
-    inputElement.addEventListener('focus', async () => {
+    inputElement.addEventListener("focus", async () => {
       this.updateBodyClassNames();
 
-      if (game.state.status !== GameStatus.READY || this.countingDown || this.showingInstructions) {
+      if (
+        game.state.status !== GameStatus.READY ||
+        this.countingDown ||
+        this.showingInstructions
+      ) {
         return;
       }
 
-      instructionsButtonElement.innerHTML = "good luck!"
+      instructionsButtonElement.innerHTML = "good luck!";
       utilityBarElement.classList.add("hidden");
 
       await this.countDown();
@@ -151,11 +184,11 @@ export class GameGrid {
       this.update();
     });
 
-    inputElement.addEventListener('blur', () => {
+    inputElement.addEventListener("blur", () => {
       this.update();
     });
 
-    inputElement.addEventListener('input', () => {
+    inputElement.addEventListener("input", () => {
       if (game.state.status !== GameStatus.PLAYING) {
         return;
       }
@@ -165,7 +198,10 @@ export class GameGrid {
       }
 
       sounds.click.play();
-      game.dispatch({ type: GameActionType.PROCESS_INPUT, input: inputElement.value });
+      game.dispatch({
+        type: GameActionType.PROCESS_INPUT,
+        input: inputElement.value,
+      });
 
       if (game.state.lastInputIncorrect) {
         sounds.incorrect.play();
@@ -175,7 +211,7 @@ export class GameGrid {
       this.lastInputValue = inputElement.value;
     });
 
-    shareButtonElement.addEventListener('click', () => {
+    shareButtonElement.addEventListener("click", () => {
       copyToClipboard(getGameSummary(game.state));
 
       shareButtonElement.textContent = "copied to clipboard!";
@@ -185,21 +221,24 @@ export class GameGrid {
       }, 1500);
     });
 
-    instructionsButtonElement.addEventListener('click', () => {
+    instructionsButtonElement.addEventListener("click", () => {
       sounds.click.play();
       this.showingInstructions = true;
       document.body.classList.add("showing-instructions");
-    })
+    });
 
-    hideInstructionsButtonElement.addEventListener('click', () => {
+    hideInstructionsButtonElement.addEventListener("click", () => {
       sounds.click.play();
       this.showingInstructions = false;
       document.body.classList.remove("showing-instructions");
-    })
+    });
   }
 
   updateInputElement(): void {
-    const { game: { state }, gameElements: { inputElement } } = this;
+    const {
+      game: { state },
+      gameElements: { inputElement },
+    } = this;
 
     if (state.status === GameStatus.PLAYING) {
       // trim errors
@@ -210,7 +249,11 @@ export class GameGrid {
   }
 
   updateCursorPosition(): void {
-    const { game: { state }, gameElements: { cursorElement }, charElementMatrix } = this;
+    const {
+      game: { state },
+      gameElements: { cursorElement },
+      charElementMatrix,
+    } = this;
 
     if (state.status !== GameStatus.PLAYING) {
       return;
@@ -227,7 +270,10 @@ export class GameGrid {
   }
 
   updateBodyClassNames(): void {
-    const { game: { state }, gameElements: { inputElement } } = this;
+    const {
+      game: { state },
+      gameElements: { inputElement },
+    } = this;
 
     for (const className of Object.values(gameStatusToClassNameMap)) {
       document.body.classList.remove(className);
@@ -249,7 +295,11 @@ export class GameGrid {
   updateGameElementsClassNames(): void {
     this.updateBodyClassNames();
 
-    const { game: { state }, gameElements: { cursorElement, gameElement }, charElementMatrix } = this;
+    const {
+      game: { state },
+      gameElements: { cursorElement, gameElement },
+      charElementMatrix,
+    } = this;
 
     if (state.status !== GameStatus.PLAYING) {
       return;
@@ -258,7 +308,9 @@ export class GameGrid {
     const { tokenIndex, tokenContentIndex, lastInputIncorrect } = state;
     const charElement = charElementMatrix[tokenIndex][tokenContentIndex];
 
-    const { config: { tokens } } = state;
+    const {
+      config: { tokens },
+    } = state;
     const { errorsShown } = tokens[tokenIndex];
 
     for (let i = 0; i <= tokenIndex; i++) {
@@ -300,13 +352,16 @@ export class GameGrid {
   }
 
   updateResultsElement(): void {
-    const { game: { state }, gameElements: { speedElement, mistakesElement, utilityBarElement } } = this;
+    const {
+      game: { state },
+      gameElements: { speedElement, mistakesElement, utilityBarElement },
+    } = this;
     const updateResults = () => {
       const { speed, mistakes } = getGameResults(this.game.state);
 
       speedElement.textContent = speed;
       mistakesElement.textContent = mistakes;
-    }
+    };
 
     if (state.status === GameStatus.PLAYING && !this.resultsInterval) {
       this.resultsInterval = setInterval(updateResults, 50);
