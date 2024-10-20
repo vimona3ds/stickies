@@ -1,10 +1,10 @@
 import { createContext } from "react";
-import { GameState, GameStatus } from "../types";
+import { GameAction, GameState, GameStatus } from "../types";
 import { getInitialGameStateFromConfig } from "../utils/getInitialGameStateFromConfig";
 
 export type GameContext = {
   state: GameState;
-  dispatch: any;
+  dispatch: (action: GameAction) => void;
 };
 
 export const GameContext = createContext<GameContext>({

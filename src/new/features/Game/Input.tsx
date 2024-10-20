@@ -2,7 +2,11 @@ import { FormEvent } from "react";
 import { useGameContext } from "../../hooks/useGameContext";
 import { GameActionType } from "../../types";
 
-export function Input() {
+type Props = {
+  inputRef: React.RefObject<HTMLInputElement>;
+};
+
+export function Input({ inputRef }: Props) {
   const { dispatch } = useGameContext();
   const handleInput = (event: FormEvent<HTMLInputElement>) => {
     const { nativeEvent } = event;
@@ -25,9 +29,10 @@ export function Input() {
 
   return (
     <input
-      className="opacity-0 w-full h-full absolute top-0 left-0"
+      className="z-50 opacity-0 w-full h-full absolute top-0 left-0"
       value=""
       onInput={handleInput}
+      ref={inputRef}
     />
   );
 }
