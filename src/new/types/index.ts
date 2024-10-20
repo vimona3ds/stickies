@@ -12,7 +12,7 @@ export type Coordinates = {
 export type GameConfig = {
   id: number;
   rows: number;
-  cols: number;
+  columns: number;
   tokens: GameToken[];
 };
 
@@ -60,3 +60,10 @@ export type GameTokenLayout = (
 ) & {
   fillType: GameTokenLayoutFillType;
 };
+
+export enum GameStatus {
+  LOADING = "LOADING",
+  READY = "READY",
+  PLAYING = "PLAYING",
+  RESULTS = "RESULTS",
+}
