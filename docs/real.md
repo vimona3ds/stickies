@@ -63,3 +63,25 @@ uhhh its so late my brain is fried ill come back to this tmr
 now i have to deal with destruction of a game to handle a new game on retry
 
 and at this point i am giving up and using react. i would say i have reached a level of complexity that warrants it.
+
+## update 2
+- state generated from config
+- dom generated from state
+
+Cell: {
+  tokenIndex: number,
+  tokenContentIndex: number
+}
+
+state:
+- currentCell: Cell,
+- mistakeCount: number,
+- startTimeMs: number,
+- cellMatrix: Cell[][],
+
+actual input only accepts 1 input at a time and is always empty value
+the input is compared to first char of content of tokenIndex
+
+but then how do prev cells know which classes they should have?
+each cell in cellmatrix is compared to currentCell
+

@@ -1,18 +1,29 @@
+export type GridCoordinates = [row: number, col: number];
+
+export type TokenCoordinates = [tokenIndex: number, tokenContentIndex: number];
+
+export type GameCell = TokenCoordinates;
+
 export type GameState = {
+  status: GameStatus;
   config: GameConfig;
+  currentCell?: GameCell;
+  mistakeCount: number;
+  startTimeMs?: number;
+  endTimeMs?: number;
+  cellMatrix: (GameCell | undefined)[][];
+};
+
+export enum GameActionType {
+  BEGIN_PLAYING = "BEGIN_PLAYING",
 }
 
-export type GameAction = {}
-
-export type Coordinates = {
-  x: number;
-  y: number;
-}
+export type GameAction = { type: GameActionType.BEGIN_PLAYING };
 
 export type GameConfig = {
   id: number;
   rows: number;
-  columns: number;
+  cols: number;
   tokens: GameToken[];
 };
 
@@ -54,16 +65,15 @@ export type GameTokenLayout = (
   | { type: GameTokenLayoutType.NONE }
   | {
       type: GameTokenLayoutType.DIRECTION;
-      initialPosition: Coordinates;
-      direction: Coordinates;
+      initialPosition: GridCoordinates;
+      direction: GridCoordinates;
     }
 ) & {
   fillType: GameTokenLayoutFillType;
 };
 
 export enum GameStatus {
-  LOADING = "LOADING",
   READY = "READY",
   PLAYING = "PLAYING",
-  RESULTS = "RESULTS",
+  COMPLETE = "COMPLETE",
 }

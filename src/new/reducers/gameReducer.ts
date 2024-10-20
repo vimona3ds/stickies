@@ -1,8 +1,13 @@
-import { GameAction, GameState } from "../types";
+import { GameAction, GameActionType, GameState, GameStatus } from "../types";
 
 export function gameReducer(state: GameState, action: GameAction): GameState {
-  return {
-    ...state,
-    ...action
+  const { config } = state;
+
+  switch (action.type) {
+    case GameActionType.BEGIN_PLAYING:
+      return {
+        ...state,
+        currentCell: [1, 1],
+      };
   }
 }
