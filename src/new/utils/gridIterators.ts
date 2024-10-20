@@ -175,7 +175,7 @@ export function* iterateCellMatrixPerTokenLayoutFillType(
       for (let ringNumber = 0; ringNumber <= maxRingNumber; ringNumber++) {
         for (const coordinates of iterateCellMatrixClockwiseRingInward(
           cellMatrix,
-          maxRingNumber,
+          ringNumber,
         )) {
           yield coordinates;
         }

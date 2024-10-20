@@ -9,6 +9,7 @@ export type GameState = {
   config: GameConfig;
   currentCell?: GameCell;
   mistakeCount: number;
+  lastInputMistake?: boolean;
   startTimeMs?: number;
   endTimeMs?: number;
   cellMatrix: (GameCell | undefined)[][];
@@ -16,9 +17,12 @@ export type GameState = {
 
 export enum GameActionType {
   BEGIN_PLAYING = "BEGIN_PLAYING",
+  PROCESS_INPUT = "PROCESS_INPUT",
 }
 
-export type GameAction = { type: GameActionType.BEGIN_PLAYING };
+export type GameAction =
+  | { type: GameActionType.BEGIN_PLAYING }
+  | { type: GameActionType.PROCESS_INPUT; input: string };
 
 export type GameConfig = {
   id: number;

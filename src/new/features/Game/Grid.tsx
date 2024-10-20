@@ -1,10 +1,10 @@
 import { useGameContext } from "../../hooks/useGameContext";
 import { Cell } from "./Cell";
 
-export function GameGrid() {
+export function Grid() {
   const {
     state: {
-      config: { tokens, rows, cols },
+      config: { rows, cols },
       cellMatrix,
     },
   } = useGameContext();
