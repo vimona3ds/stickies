@@ -1,27 +1,10 @@
-$primary-25: rgba(255, 255, 255, 0.25);
-$primary-50: rgba(255, 255, 255, 0.5);
-$primary-75: rgba(255, 255, 255, 0.75);
-$primary-100: rgba(255, 255, 255, 1);
-$fast-transition: cubic-bezier(0, 1, 1, 1);
-$regular-transition: ease;
-$background: #222;
-$min-font-size: 1.25rem;
-$border: 1px solid rgba(255, 255, 255, 0.75);
-$border-hover: 1px solid rgba(255, 255, 255, 1);
-$border-radius: 0;
-$box-shadow: none;
-$button-padding: 0.9375rem;
-$game-button-padding: 3vmin 5vmin;
-$font-family: "Raleway";
-$utility-bar-height: 10vmin;
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html,
-:root {
+html, :root {
   touch-action: none;
   height: 100%;
-}
-
-body {
-  background-color: $background;
-  color: $primary-50;
+  font-family: 'Raleway', sans-serif;
 }
